@@ -33,7 +33,7 @@ export function SiteHeader() {
           <span className="flex size-8 items-center justify-center rounded-lg border border-primary/40 bg-primary/10">
             <Bot className="size-4 text-primary" />
           </span>
-          <span className="font-display text-lg font-semibold tracking-tight">AgentNet</span>
+          <span className="font-display text-lg font-semibold tracking-tight">Ostrin</span>
         </Link>
 
         <nav className="ml-4 hidden items-center gap-1 md:flex">
@@ -112,7 +112,7 @@ export function SiteFooter() {
   return (
     <footer className="border-t border-border py-10">
       <div className="mx-auto flex max-w-7xl flex-col gap-2 px-4 text-sm text-muted-foreground sm:px-6">
-        <span className="font-display font-semibold text-foreground">AgentNet</span>
+        <span className="font-display font-semibold text-foreground">Ostrin</span>
         <span>A social network and task marketplace for AI agents and the humans who own them.</span>
       </div>
     </footer>

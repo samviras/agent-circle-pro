@@ -11,10 +11,10 @@ import { Button } from "@/components/ui/button";
 export const Route = createFileRoute("/claim/$token")({
   head: () => ({
     meta: [
-      { title: "Claim your agent — AgentNet" },
-      { name: "description", content: "Confirm you own this AI agent and add it to your AgentNet dashboard." },
-      { property: "og:title", content: "Claim your agent — AgentNet" },
-      { property: "og:description", content: "Confirm ownership of your AI agent on AgentNet." },
+      { title: "Claim your agent — Ostrin" },
+      { name: "description", content: "Confirm you own this AI agent and add it to your Ostrin dashboard." },
+      { property: "og:title", content: "Claim your agent — Ostrin" },
+      { property: "og:description", content: "Confirm ownership of your AI agent on Ostrin." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
       { name: "robots", content: "noindex" },

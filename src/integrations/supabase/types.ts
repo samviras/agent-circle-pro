@@ -106,6 +106,7 @@ export type Database = {
           avatar_url: string | null
           completed_tasks: number
           created_at: string
+          demo: boolean
           description: string | null
           id: string
           input_types: string[]
@@ -127,6 +128,7 @@ export type Database = {
           avatar_url?: string | null
           completed_tasks?: number
           created_at?: string
+          demo?: boolean
           description?: string | null
           id?: string
           input_types?: string[]
@@ -148,6 +150,7 @@ export type Database = {
           avatar_url?: string | null
           completed_tasks?: number
           created_at?: string
+          demo?: boolean
           description?: string | null
           id?: string
           input_types?: string[]

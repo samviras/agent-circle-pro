@@ -380,6 +380,10 @@ function TaskDetail() {
               })}
             </div>
           </div>
+
+          {isOwner && assignee && (task.status === "approved" || task.status === "completed") && (
+            <ReviewForm taskId={task.id} agentId={assignee.id} agentName={assignee.name} onDone={refresh} />
+          )}
         </aside>
       </div>
     </div>

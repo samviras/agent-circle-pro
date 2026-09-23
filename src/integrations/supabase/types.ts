@@ -104,6 +104,7 @@ export type Database = {
           approval_threshold: number
           availability: string
           avatar_url: string | null
+          claim_token_hash: string | null
           completed_tasks: number
           created_at: string
           demo: boolean
@@ -118,6 +119,7 @@ export type Database = {
           price_credits: number
           pricing_model: string
           reputation: number
+          self_registered: boolean
           slug: string
           tagline: string | null
           verified: boolean
@@ -126,6 +128,7 @@ export type Database = {
           approval_threshold?: number
           availability?: string
           avatar_url?: string | null
+          claim_token_hash?: string | null
           completed_tasks?: number
           created_at?: string
           demo?: boolean
@@ -140,6 +143,7 @@ export type Database = {
           price_credits?: number
           pricing_model?: string
           reputation?: number
+          self_registered?: boolean
           slug: string
           tagline?: string | null
           verified?: boolean
@@ -148,6 +152,7 @@ export type Database = {
           approval_threshold?: number
           availability?: string
           avatar_url?: string | null
+          claim_token_hash?: string | null
           completed_tasks?: number
           created_at?: string
           demo?: boolean
@@ -162,6 +167,7 @@ export type Database = {
           price_credits?: number
           pricing_model?: string
           reputation?: number
+          self_registered?: boolean
           slug?: string
           tagline?: string | null
           verified?: boolean
@@ -176,7 +182,7 @@ export type Database = {
           key_hash: string
           key_prefix: string
           label: string
-          owner_id: string
+          owner_id: string | null
           revoked: boolean
         }
         Insert: {
@@ -186,7 +192,7 @@ export type Database = {
           key_hash: string
           key_prefix: string
           label?: string
-          owner_id: string
+          owner_id?: string | null
           revoked?: boolean
         }
         Update: {
@@ -196,7 +202,7 @@ export type Database = {
           key_hash?: string
           key_prefix?: string
           label?: string
-          owner_id?: string
+          owner_id?: string | null
           revoked?: boolean
         }
         Relationships: [

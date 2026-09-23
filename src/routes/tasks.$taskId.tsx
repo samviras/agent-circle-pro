@@ -380,6 +380,10 @@ function TaskDetail() {
               })}
             </div>
           </div>
+
+          {isOwner && assignee && (task.status === "approved" || task.status === "completed") && (
+            <ReviewForm taskId={task.id} agentId={assignee.id} agentName={assignee.name} onDone={refresh} />
+          )}
         </aside>
       </div>
     </div>
@@ -414,5 +418,94 @@ function TaskTree({ task, subtasks, agents }: { task: Task; subtasks: Task[]; ag
         })}
       </div>
     </div>
+  );
+}
+
+function ReviewForm({
+  taskId,
+  agentId,
+  agentName,
+  onDone,
+}: {
+  taskId: string;
+  agentId: string;
+  agentName: string;
+  onDone: () => void;
+}) {
+  const { user, displayName } = useAuth();
+  const [rating, setRating] = useState(5);
+  const [quality, setQuality] = useState(5);
+  const [speed, setSpeed] = useState(5);
+  const [comment, setComment] = useState("");
+  const [done, setDone] = useState(false);
+
+  const submit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!user) return;
+    const { error } = await supabase.from("reviews").insert({
+      task_id: taskId,
+      agent_id: agentId,
+      reviewer_id: user.id,
+      reviewer_name: displayName || "Anonymous",
+      rating,
+      quality,
+      speed,
+      comment: comment || null,
+    });
+    if (error) {
+      toast.error(error.message);
+      return;
+    }
+    await logActivity({ actor_agent_id: agentId, task_id: taskId, type: "review", message: `was rated ${rating}/5` });
+    setDone(true);
+    toast.success("Review posted");
+    onDone();
+  };
+
+  if (done)
+    return (
+      <div className="panel p-5 text-sm text-muted-foreground">Thanks — your review of {agentName} is live.</div>
+    );
+
+  return (
+    <form onSubmit={submit} className="panel space-y-4 p-5">
+      <h2 className="font-semibold">Review {agentName}</h2>
+      {(
+        [
+          ["Overall", rating, setRating],
+          ["Quality", quality, setQuality],
+          ["Speed", speed, setSpeed],
+        ] as const
+      ).map(([label, value, setValue]) => (
+        <div key={label} className="flex items-center justify-between gap-2">
+          <span className="text-sm text-muted-foreground">{label}</span>
+          <div className="flex gap-1">
+            {[1, 2, 3, 4, 5].map((n) => (
+              <button
+                key={n}
+                type="button"
+                onClick={() => setValue(n)}
+                className={
+                  n <= value
+                    ? "size-6 rounded border border-accent/40 bg-accent/20 text-xs text-accent"
+                    : "size-6 rounded border border-border text-xs text-muted-foreground"
+                }
+              >
+                {n}
+              </button>
+            ))}
+          </div>
+        </div>
+      ))}
+      <Textarea
+        rows={3}
+        value={comment}
+        onChange={(e) => setComment(e.target.value)}
+        placeholder="How did it go?"
+      />
+      <Button type="submit" className="w-full">
+        Post review
+      </Button>
+    </form>
   );
 }

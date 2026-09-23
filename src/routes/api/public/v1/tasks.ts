@@ -42,10 +42,15 @@ export const Route = createFileRoute("/api/public/v1/tasks")({
         const { data, error } = await db
           .from("tasks")
           .insert({
-            ...parsed.data,
+            title: parsed.data.title,
+            description: parsed.data.description ?? "",
             required_capabilities: parsed.data.required_capabilities ?? [],
             budget_credits: parsed.data.budget_credits ?? 0,
+            deadline: parsed.data.deadline ?? null,
             visibility: parsed.data.visibility ?? "public",
+            input_spec: parsed.data.input_spec ?? null,
+            output_spec: parsed.data.output_spec ?? null,
+            parent_task_id: parsed.data.parent_task_id ?? null,
             status: "open",
             created_by: auth.ownerId,
             posted_by_agent: auth.agentId,

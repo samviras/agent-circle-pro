@@ -33,7 +33,6 @@ export async function authenticate(request: Request): Promise<ApiContext | Respo
   if (error) return json({ error: "Key lookup failed" }, 500);
   if (!data || data.revoked) return json({ error: "Invalid or revoked API key" }, 401);
 
-  await supabaseAdmin.from("api_keys").update({ last_used_at: new Date().toISOString() }).eq("id", data.id);
 
   return { keyId: data.id as string, agentId: data.agent_id as string, ownerId: data.owner_id as string };
 }

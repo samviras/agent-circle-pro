@@ -10,16 +10,23 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as DocsRouteImport } from './routes/docs'
 import { Route as FeedRouteImport } from './routes/feed'
+import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
 import { Route as AgentsIndexRouteImport } from './routes/agents.index'
 import { Route as AgentsSlugRouteImport } from './routes/agents.$slug'
 import { Route as TasksIndexRouteImport } from './routes/tasks.index'
+import { Route as TasksTaskIdRouteImport } from './routes/tasks.$taskId'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
+  id: '/_authenticated',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthRoute = AuthRouteImport.update({
@@ -37,6 +44,11 @@ const FeedRoute = FeedRouteImport.update({
   path: '/feed',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedDashboardRoute = AuthenticatedDashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AgentsIndexRoute = AgentsIndexRouteImport.update({
   id: '/agents/',
   path: '/agents/',
@@ -52,13 +64,20 @@ const TasksIndexRoute = TasksIndexRouteImport.update({
   path: '/tasks/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const TasksTaskIdRoute = TasksTaskIdRouteImport.update({
+  id: '/tasks/$taskId',
+  path: '/tasks/$taskId',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/docs': typeof DocsRoute
   '/feed': typeof FeedRoute
+  '/dashboard': typeof AuthenticatedDashboardRoute
   '/agents/$slug': typeof AgentsSlugRoute
+  '/tasks/$taskId': typeof TasksTaskIdRoute
   '/agents/': typeof AgentsIndexRoute
   '/tasks/': typeof TasksIndexRoute
 }
@@ -67,43 +86,70 @@ export interface FileRoutesByTo {
   '/auth': typeof AuthRoute
   '/docs': typeof DocsRoute
   '/feed': typeof FeedRoute
+  '/dashboard': typeof AuthenticatedDashboardRoute
   '/agents/$slug': typeof AgentsSlugRoute
+  '/tasks/$taskId': typeof TasksTaskIdRoute
   '/agents': typeof AgentsIndexRoute
   '/tasks': typeof TasksIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/auth': typeof AuthRoute
   '/docs': typeof DocsRoute
   '/feed': typeof FeedRoute
+  '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
   '/agents/$slug': typeof AgentsSlugRoute
+  '/tasks/$taskId': typeof TasksTaskIdRoute
   '/agents/': typeof AgentsIndexRoute
   '/tasks/': typeof TasksIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    '/' | '/auth' | '/docs' | '/feed' | '/agents/$slug' | '/agents/' | '/tasks/'
-  fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/auth' | '/docs' | '/feed' | '/agents/$slug' | '/agents' | '/tasks'
-  id:
-    | '__root__'
     | '/'
     | '/auth'
     | '/docs'
     | '/feed'
+    | '/dashboard'
     | '/agents/$slug'
+    | '/tasks/$taskId'
+    | '/agents/'
+    | '/tasks/'
+  fileRoutesByTo: FileRoutesByTo
+  to:
+    | '/'
+    | '/auth'
+    | '/docs'
+    | '/feed'
+    | '/dashboard'
+    | '/agents/$slug'
+    | '/tasks/$taskId'
+    | '/agents'
+    | '/tasks'
+  id:
+    | '__root__'
+    | '/'
+    | '/_authenticated'
+    | '/auth'
+    | '/docs'
+    | '/feed'
+    | '/_authenticated/dashboard'
+    | '/agents/$slug'
+    | '/tasks/$taskId'
     | '/agents/'
     | '/tasks/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
   AuthRoute: typeof AuthRoute
   DocsRoute: typeof DocsRoute
   FeedRoute: typeof FeedRoute
   AgentsSlugRoute: typeof AgentsSlugRoute
+  TasksTaskIdRoute: typeof TasksTaskIdRoute
   AgentsIndexRoute: typeof AgentsIndexRoute
   TasksIndexRoute: typeof TasksIndexRoute
 }
@@ -115,6 +161,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated': {
+      id: '/_authenticated'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AuthenticatedRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/auth': {
@@ -138,6 +191,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof FeedRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated/dashboard': {
+      id: '/_authenticated/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof AuthenticatedDashboardRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/agents/': {
       id: '/agents/'
       path: '/agents'
@@ -159,15 +219,35 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TasksIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/tasks/$taskId': {
+      id: '/tasks/$taskId'
+      path: '/tasks/$taskId'
+      fullPath: '/tasks/$taskId'
+      preLoaderRoute: typeof TasksTaskIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
+interface AuthenticatedRouteRouteChildren {
+  AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRoute
+}
+
+const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedDashboardRoute: AuthenticatedDashboardRoute,
+}
+
+const AuthenticatedRouteRouteWithChildren =
+  AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
   AuthRoute: AuthRoute,
   DocsRoute: DocsRoute,
   FeedRoute: FeedRoute,
   AgentsSlugRoute: AgentsSlugRoute,
+  TasksTaskIdRoute: TasksTaskIdRoute,
   AgentsIndexRoute: AgentsIndexRoute,
   TasksIndexRoute: TasksIndexRoute,
 }

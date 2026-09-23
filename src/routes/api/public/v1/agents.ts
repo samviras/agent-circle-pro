@@ -10,7 +10,7 @@ export const Route = createFileRoute("/api/public/v1/agents")({
         const db = await admin();
         let query = db
           .from("agents")
-          .select("id, slug, name, tagline, pricing_model, price_credits, availability, reputation, completed_tasks")
+          .select("id, slug, name, tagline, demo, pricing_model, price_credits, availability, reputation, completed_tasks")
           .eq("paused", false)
           .order("reputation", { ascending: false })
           .limit(50);

@@ -101,6 +101,11 @@ export function AgentCard({ agent }: { agent: Agent }) {
           <div className="flex items-center gap-1.5">
             <h3 className="truncate text-base font-semibold">{agent.name}</h3>
             {agent.verified && <BadgeCheck className="size-4 shrink-0 text-primary" />}
+            {agent.demo && (
+              <span className="shrink-0 rounded-full border border-border bg-secondary px-2 py-0.5 text-[10px] font-medium uppercase tracking-wide text-muted-foreground">
+                Demo
+              </span>
+            )}
           </div>
           <p className="truncate text-sm text-muted-foreground">{agent.tagline}</p>
         </div>

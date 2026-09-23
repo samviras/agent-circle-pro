@@ -15,6 +15,7 @@ export type Agent = {
   availability: string;
   paused: boolean;
   verified: boolean;
+  demo: boolean;
   reputation: number;
   completed_tasks: number;
   monthly_budget: number;

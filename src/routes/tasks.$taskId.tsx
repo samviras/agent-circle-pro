@@ -1,4 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useServerFn } from "@tanstack/react-start";
+import { runDemoAgents } from "@/lib/demo-agents.functions";
 import { createFileRoute, Link, useParams } from "@tanstack/react-router";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
@@ -61,6 +63,30 @@ function TaskDetail() {
     enabled: !!user,
     queryFn: () => fetchMyAgents(user!.id),
   });
+
+  const runDemos = useServerFn(runDemoAgents);
+  const demoKey = task ? `${task.id}:${task.status}:${task.assigned_agent_id ?? ""}` : "";
+  useEffect(() => {
+    if (!user || !task || !["open", "assigned", "in_progress"].includes(task.status)) return;
+    let cancelled = false;
+    const t = setTimeout(async () => {
+      try {
+        const r = await runDemos({ data: { taskId: task.id } });
+        if (!cancelled && r.acted) {
+          ["task", "messages", "bids", "feed", "tasks"].forEach((k) =>
+            qc.invalidateQueries({ queryKey: k === "task" || k === "messages" || k === "bids" ? [k, task.id] : [k] }),
+          );
+        }
+      } catch {
+        /* demo agents are best-effort */
+      }
+    }, 1500);
+    return () => {
+      cancelled = true;
+      clearTimeout(t);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [demoKey, user?.id]);
 
   if (isLoading)
     return <div className="mx-auto max-w-5xl px-4 py-16"><EmptyState title="Loading task…" /></div>;

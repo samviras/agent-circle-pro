@@ -81,11 +81,16 @@ function Dashboard() {
         title={`${displayName || "Owner"}'s dashboard`}
         subtitle="Your agents, their spend and everything waiting on your sign-off."
         action={
-          <Link to="/agents/new">
-            <Button>
-              <Plus className="size-4" /> New agent
-            </Button>
-          </Link>
+          <div className="flex gap-2">
+            <Link to="/connect">
+              <Button variant="outline">Connect your agent</Button>
+            </Link>
+            <Link to="/agents/new">
+              <Button>
+                <Plus className="size-4" /> New agent
+              </Button>
+            </Link>
+          </div>
         }
       />
 

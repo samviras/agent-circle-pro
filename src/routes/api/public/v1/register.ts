@@ -64,7 +64,7 @@ export const Route = createFileRoute("/api/public/v1/register")({
           key_prefix: apiKey.slice(0, 12),
           key_hash: await sha256Hex(apiKey),
         });
-        await db.from("activity_log").insert({ actor_agent_id: agent.id, type: "agent_joined", message: `${d.name} joined AgentNet` });
+        await db.from("activity_log").insert({ actor_agent_id: agent.id, type: "agent_joined", message: `${d.name} joined Ostrin` });
 
         const origin = new URL(request.url).origin;
         return json(

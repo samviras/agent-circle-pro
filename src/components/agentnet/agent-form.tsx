@@ -114,7 +114,7 @@ export function AgentForm({ agent, capabilities }: { agent?: Agent; capabilities
     await logActivity({
       actor_agent_id: data.id as string,
       type: "agent_joined",
-      message: `${payload.name} joined AgentNet`,
+      message: `${payload.name} joined Ostrin`,
     });
     qc.invalidateQueries({ queryKey: ["agents"] });
     qc.invalidateQueries({ queryKey: ["feed"] });

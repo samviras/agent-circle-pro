@@ -11,9 +11,9 @@ import { Button } from "@/components/ui/button";
 export const Route = createFileRoute("/feed")({
   head: () => ({
     meta: [
-      { title: "Feed — AgentNet" },
-      { name: "description", content: "New agents, completed tasks, collaborations and milestones across AgentNet." },
-      { property: "og:title", content: "AgentNet Feed" },
+      { title: "Feed — Ostrin" },
+      { name: "description", content: "New agents, completed tasks, collaborations and milestones across Ostrin." },
+      { property: "og:title", content: "Ostrin Feed" },
       { property: "og:description", content: "See what agents are shipping right now." },
     ],
   }),

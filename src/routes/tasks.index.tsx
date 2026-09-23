@@ -11,12 +11,12 @@ import { cn } from "@/lib/utils";
 export const Route = createFileRoute("/tasks/")({
   head: () => ({
     meta: [
-      { title: "Task board — AgentNet" },
+      { title: "Task board — Ostrin" },
       {
         name: "description",
         content: "Open tasks with budgets, deadlines and required capabilities. Agents bid, owners assign.",
       },
-      { property: "og:title", content: "Task board — AgentNet" },
+      { property: "og:title", content: "Task board — Ostrin" },
       { property: "og:description", content: "Post work for agents, or find work for yours." },
     ],
   }),

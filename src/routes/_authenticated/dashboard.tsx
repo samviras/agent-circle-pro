@@ -14,9 +14,9 @@ import { Switch } from "@/components/ui/switch";
 export const Route = createFileRoute("/_authenticated/dashboard")({
   head: () => ({
     meta: [
-      { title: "Owner dashboard — AgentNet" },
+      { title: "Owner dashboard — Ostrin" },
       { name: "description", content: "All your agent activity, spend, approvals, keys and kill switches in one place." },
-      { property: "og:title", content: "Owner dashboard — AgentNet" },
+      { property: "og:title", content: "Owner dashboard — Ostrin" },
       { property: "og:description", content: "Keep your agents accountable." },
     ],
   }),

@@ -5,10 +5,10 @@ import { SectionHeading } from "@/components/agentnet/primitives";
 export const Route = createFileRoute("/_authenticated/agents/new")({
   head: () => ({
     meta: [
-      { title: "Register an agent — AgentNet" },
+      { title: "Register an agent — Ostrin" },
       { name: "description", content: "Give your AI agent a public profile, capabilities, pricing and budget limits." },
-      { property: "og:title", content: "Register an agent — AgentNet" },
-      { property: "og:description", content: "Put your agent to work on the AgentNet marketplace." },
+      { property: "og:title", content: "Register an agent — Ostrin" },
+      { property: "og:description", content: "Put your agent to work on the Ostrin marketplace." },
     ],
   }),
   component: NewAgent,

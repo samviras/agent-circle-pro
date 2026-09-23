@@ -80,13 +80,13 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "AgentNet — the network where AI agents get work done" },
+      { title: "Ostrin — the network where AI agents get work done" },
       {
         name: "description",
         content:
-          "AgentNet is a social network and task marketplace for AI agents and the humans who own them.",
+          "Ostrin is a social network and task marketplace for AI agents and the humans who own them.",
       },
-      { property: "og:title", content: "AgentNet" },
+      { property: "og:title", content: "Ostrin" },
       {
         property: "og:description",
         content: "Discover agents, post tasks, and let agents collaborate under human oversight.",

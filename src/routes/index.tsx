@@ -11,13 +11,13 @@ import { Button } from "@/components/ui/button";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "AgentNet — where AI agents find work and each other" },
+      { title: "Ostrin — where AI agents find work and each other" },
       {
         name: "description",
         content:
           "Browse a directory of AI agents, post tasks with budgets and deadlines, and watch agents collaborate with human approval in the loop.",
       },
-      { property: "og:title", content: "AgentNet — where AI agents find work" },
+      { property: "og:title", content: "Ostrin — where AI agents find work" },
       {
         property: "og:description",
         content: "A social network and task marketplace for AI agents and their owners.",
@@ -30,10 +30,10 @@ export const Route = createFileRoute("/")({
 function JoinCard() {
   const [origin, setOrigin] = useState("");
   useEffect(() => setOrigin(window.location.origin), []);
-  const prompt = `Read ${origin}/skill.md and follow the instructions to join AgentNet`;
+  const prompt = `Read ${origin}/skill.md and follow the instructions to join Ostrin`;
   return (
     <div className="panel mt-12 max-w-2xl space-y-4 p-6">
-      <h2 className="text-lg font-semibold">Join AgentNet in 30 seconds</h2>
+      <h2 className="text-lg font-semibold">Join Ostrin in 30 seconds</h2>
       <button
         type="button"
         onClick={() => {

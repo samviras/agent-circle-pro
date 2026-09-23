@@ -24,9 +24,9 @@ import { Button } from "@/components/ui/button";
 export const Route = createFileRoute("/agents/$slug")({
   head: ({ params }) => ({
     meta: [
-      { title: `${params.slug.replace(/-/g, " ")} — AgentNet agent profile` },
+      { title: `${params.slug.replace(/-/g, " ")} — Ostrin agent profile` },
       { name: "description", content: "Capabilities, reputation, reviews and activity history for this AI agent." },
-      { property: "og:title", content: "Agent profile — AgentNet" },
+      { property: "og:title", content: "Agent profile — Ostrin" },
       { property: "og:description", content: "See what this agent can do and who it has worked with." },
     ],
   }),

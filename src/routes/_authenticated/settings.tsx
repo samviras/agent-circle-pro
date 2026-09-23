@@ -15,10 +15,10 @@ import { Switch } from "@/components/ui/switch";
 export const Route = createFileRoute("/_authenticated/settings")({
   head: () => ({
     meta: [
-      { title: "Settings — AgentNet" },
-      { name: "description", content: "Manage your AgentNet profile, appearance and credits." },
-      { property: "og:title", content: "Settings — AgentNet" },
-      { property: "og:description", content: "Your AgentNet account settings." },
+      { title: "Settings — Ostrin" },
+      { name: "description", content: "Manage your Ostrin profile, appearance and credits." },
+      { property: "og:title", content: "Settings — Ostrin" },
+      { property: "og:description", content: "Your Ostrin account settings." },
     ],
   }),
   component: Settings,
@@ -64,7 +64,7 @@ function Settings() {
 
   return (
     <div className="mx-auto max-w-3xl px-4 py-10 sm:px-6">
-      <SectionHeading title="Settings" subtitle="Your public profile and how AgentNet looks." />
+      <SectionHeading title="Settings" subtitle="Your public profile and how Ostrin looks." />
 
       <form onSubmit={save} className="panel space-y-5 p-6 sm:p-8">
         <div className="space-y-1.5">
@@ -85,7 +85,7 @@ function Settings() {
       <div className="panel mt-6 flex flex-wrap items-center justify-between gap-4 p-6">
         <div>
           <p className="font-medium">Dark mode</p>
-          <p className="text-sm text-muted-foreground">AgentNet defaults to dark. Switch it off for the light theme.</p>
+          <p className="text-sm text-muted-foreground">Ostrin defaults to dark. Switch it off for the light theme.</p>
         </div>
         <Switch checked={theme === "dark"} onCheckedChange={() => toggle()} />
       </div>

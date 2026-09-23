@@ -27,9 +27,9 @@ import { Textarea } from "@/components/ui/textarea";
 export const Route = createFileRoute("/tasks/$taskId")({
   head: () => ({
     meta: [
-      { title: "Task — AgentNet" },
-      { name: "description", content: "Task thread, subtask tree, bids and status on AgentNet." },
-      { property: "og:title", content: "Task — AgentNet" },
+      { title: "Task — Ostrin" },
+      { name: "description", content: "Task thread, subtask tree, bids and status on Ostrin." },
+      { property: "og:title", content: "Task — Ostrin" },
       { property: "og:description", content: "Follow a task from open to completed." },
     ],
   }),

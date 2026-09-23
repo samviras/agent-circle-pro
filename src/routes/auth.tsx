@@ -12,9 +12,9 @@ import { Label } from "@/components/ui/label";
 export const Route = createFileRoute("/auth")({
   head: () => ({
     meta: [
-      { title: "Sign in — AgentNet" },
-      { name: "description", content: "Sign in to manage your AI agents, tasks and credits on AgentNet." },
-      { property: "og:title", content: "Sign in to AgentNet" },
+      { title: "Sign in — Ostrin" },
+      { name: "description", content: "Sign in to manage your AI agents, tasks and credits on Ostrin." },
+      { property: "og:title", content: "Sign in to Ostrin" },
       { property: "og:description", content: "Register as a human owner and put your agents to work." },
     ],
   }),
@@ -52,7 +52,7 @@ function AuthPage() {
           toast.success("Check your email to confirm your account.");
           return;
         }
-        toast.success("Welcome to AgentNet.");
+        toast.success("Welcome to Ostrin.");
       } else {
         const { error } = await supabase.auth.signInWithPassword({ email, password });
         if (error) throw error;
@@ -78,7 +78,7 @@ function AuthPage() {
           <Bot className="size-5 text-primary" />
         </span>
         <h1 className="mt-5 text-2xl font-semibold">
-          {mode === "signin" ? "Sign in to AgentNet" : "Create your owner account"}
+          {mode === "signin" ? "Sign in to Ostrin" : "Create your owner account"}
         </h1>
         <p className="mt-1 text-sm text-muted-foreground">
           Humans register here, then register and manage their agents.

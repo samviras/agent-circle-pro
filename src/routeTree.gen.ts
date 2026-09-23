@@ -11,8 +11,11 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthRouteImport } from './routes/auth'
+import { Route as DocsRouteImport } from './routes/docs'
 import { Route as FeedRouteImport } from './routes/feed'
 import { Route as AgentsIndexRouteImport } from './routes/agents.index'
+import { Route as AgentsSlugRouteImport } from './routes/agents.$slug'
+import { Route as TasksIndexRouteImport } from './routes/tasks.index'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -22,6 +25,11 @@ const IndexRoute = IndexRouteImport.update({
 const AuthRoute = AuthRouteImport.update({
   id: '/auth',
   path: '/auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DocsRoute = DocsRouteImport.update({
+  id: '/docs',
+  path: '/docs',
   getParentRoute: () => rootRouteImport,
 } as any)
 const FeedRoute = FeedRouteImport.update({
@@ -34,39 +42,70 @@ const AgentsIndexRoute = AgentsIndexRouteImport.update({
   path: '/agents/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AgentsSlugRoute = AgentsSlugRouteImport.update({
+  id: '/agents/$slug',
+  path: '/agents/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TasksIndexRoute = TasksIndexRouteImport.update({
+  id: '/tasks/',
+  path: '/tasks/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
+  '/docs': typeof DocsRoute
   '/feed': typeof FeedRoute
+  '/agents/$slug': typeof AgentsSlugRoute
   '/agents/': typeof AgentsIndexRoute
+  '/tasks/': typeof TasksIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
+  '/docs': typeof DocsRoute
   '/feed': typeof FeedRoute
+  '/agents/$slug': typeof AgentsSlugRoute
   '/agents': typeof AgentsIndexRoute
+  '/tasks': typeof TasksIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
+  '/docs': typeof DocsRoute
   '/feed': typeof FeedRoute
+  '/agents/$slug': typeof AgentsSlugRoute
   '/agents/': typeof AgentsIndexRoute
+  '/tasks/': typeof TasksIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/auth' | '/feed' | '/agents/'
+  fullPaths:
+    '/' | '/auth' | '/docs' | '/feed' | '/agents/$slug' | '/agents/' | '/tasks/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/auth' | '/feed' | '/agents'
-  id: '__root__' | '/' | '/auth' | '/feed' | '/agents/'
+  to: '/' | '/auth' | '/docs' | '/feed' | '/agents/$slug' | '/agents' | '/tasks'
+  id:
+    | '__root__'
+    | '/'
+    | '/auth'
+    | '/docs'
+    | '/feed'
+    | '/agents/$slug'
+    | '/agents/'
+    | '/tasks/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthRoute: typeof AuthRoute
+  DocsRoute: typeof DocsRoute
   FeedRoute: typeof FeedRoute
+  AgentsSlugRoute: typeof AgentsSlugRoute
   AgentsIndexRoute: typeof AgentsIndexRoute
+  TasksIndexRoute: typeof TasksIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -85,6 +124,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/docs': {
+      id: '/docs'
+      path: '/docs'
+      fullPath: '/docs'
+      preLoaderRoute: typeof DocsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/feed': {
       id: '/feed'
       path: '/feed'
@@ -99,14 +145,31 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AgentsIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/agents/$slug': {
+      id: '/agents/$slug'
+      path: '/agents/$slug'
+      fullPath: '/agents/$slug'
+      preLoaderRoute: typeof AgentsSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/tasks/': {
+      id: '/tasks/'
+      path: '/tasks'
+      fullPath: '/tasks/'
+      preLoaderRoute: typeof TasksIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthRoute: AuthRoute,
+  DocsRoute: DocsRoute,
   FeedRoute: FeedRoute,
+  AgentsSlugRoute: AgentsSlugRoute,
   AgentsIndexRoute: AgentsIndexRoute,
+  TasksIndexRoute: TasksIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

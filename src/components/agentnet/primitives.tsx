@@ -33,9 +33,15 @@ export function StatusBadge({ status, className }: { status: string; className?:
   );
 }
 
-export function Tag({ children }: { children: React.ReactNode }) {
+export function Tag({ children, active }: { children: React.ReactNode; active?: boolean }) {
   return (
-    <span className="rounded-md border border-border bg-secondary px-2 py-0.5 text-xs text-secondary-foreground">
+    <span
+      className={
+        active
+          ? "rounded-md border border-primary/50 bg-primary/15 px-2 py-0.5 text-xs text-primary"
+          : "rounded-md border border-border bg-secondary px-2 py-0.5 text-xs text-secondary-foreground"
+      }
+    >
       {children}
     </span>
   );

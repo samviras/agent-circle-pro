@@ -99,7 +99,10 @@ function TaskDetail() {
       agent_id: myAgents[0]?.id ?? null,
       body: message.trim(),
     });
-    if (error) return toast.error(error.message);
+    if (error) {
+      toast.error(error.message);
+      return;
+    }
     setMessage("");
     refresh();
   };
@@ -112,7 +115,10 @@ function TaskDetail() {
       price_credits: task.budget_credits,
       message: "Ready to take this on.",
     });
-    if (error) return toast.error(error.message);
+    if (error) {
+      toast.error(error.message);
+      return;
+    }
     await logActivity({ actor_agent_id: agentId, task_id: task.id, type: "bid", message: `bid on "${task.title}"` });
     toast.success("Bid submitted");
     refresh();
@@ -123,7 +129,10 @@ function TaskDetail() {
       .from("tasks")
       .update({ assigned_agent_id: agentId, status: "assigned" })
       .eq("id", task.id);
-    if (error) return toast.error(error.message);
+    if (error) {
+      toast.error(error.message);
+      return;
+    }
     await supabase.from("credit_ledger").insert({
       user_id: user!.id,
       agent_id: agentId,
@@ -146,7 +155,10 @@ function TaskDetail() {
     const next = NEXT_STATUS[task.status];
     if (!next) return;
     const { error } = await supabase.from("tasks").update({ status: next }).eq("id", task.id);
-    if (error) return toast.error(error.message);
+    if (error) {
+      toast.error(error.message);
+      return;
+    }
     if (next === "approved" && task.assigned_agent_id) {
       await supabase.from("credit_ledger").insert({
         user_id: user!.id,
@@ -185,7 +197,10 @@ function TaskDetail() {
       created_by: user!.id,
       input_spec: task.output_spec,
     });
-    if (error) return toast.error(error.message);
+    if (error) {
+      toast.error(error.message);
+      return;
+    }
     if (subAgent) {
       const target = agents.find((a) => a.id === subAgent);
       await logActivity({

@@ -10,16 +10,32 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as DocsRouteImport } from './routes/docs'
 import { Route as FeedRouteImport } from './routes/feed'
+import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
 import { Route as AgentsIndexRouteImport } from './routes/agents.index'
 import { Route as AgentsSlugRouteImport } from './routes/agents.$slug'
 import { Route as TasksIndexRouteImport } from './routes/tasks.index'
+import { Route as TasksTaskIdRouteImport } from './routes/tasks.$taskId'
+import { Route as AuthenticatedAgentsNewRouteImport } from './routes/_authenticated/agents.new'
+import { Route as AuthenticatedTasksNewRouteImport } from './routes/_authenticated/tasks.new'
+import { Route as AuthenticatedAgentsSlugEditRouteImport } from './routes/_authenticated/agents.$slug.edit'
+import { Route as ApiPublicV1AgentsRouteImport } from './routes/api/public/v1/agents'
+import { Route as ApiPublicV1BidsRouteImport } from './routes/api/public/v1/bids'
+import { Route as ApiPublicV1MeRouteImport } from './routes/api/public/v1/me'
+import { Route as ApiPublicV1MessagesRouteImport } from './routes/api/public/v1/messages'
+import { Route as ApiPublicV1SubmitRouteImport } from './routes/api/public/v1/submit'
+import { Route as ApiPublicV1TasksRouteImport } from './routes/api/public/v1/tasks'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
+  id: '/_authenticated',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthRoute = AuthRouteImport.update({
@@ -37,6 +53,11 @@ const FeedRoute = FeedRouteImport.update({
   path: '/feed',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedDashboardRoute = AuthenticatedDashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AgentsIndexRoute = AgentsIndexRouteImport.update({
   id: '/agents/',
   path: '/agents/',
@@ -52,60 +73,200 @@ const TasksIndexRoute = TasksIndexRouteImport.update({
   path: '/tasks/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const TasksTaskIdRoute = TasksTaskIdRouteImport.update({
+  id: '/tasks/$taskId',
+  path: '/tasks/$taskId',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedAgentsNewRoute = AuthenticatedAgentsNewRouteImport.update({
+  id: '/agents/new',
+  path: '/agents/new',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedTasksNewRoute = AuthenticatedTasksNewRouteImport.update({
+  id: '/tasks/new',
+  path: '/tasks/new',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedAgentsSlugEditRoute =
+  AuthenticatedAgentsSlugEditRouteImport.update({
+    id: '/agents/$slug/edit',
+    path: '/agents/$slug/edit',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const ApiPublicV1AgentsRoute = ApiPublicV1AgentsRouteImport.update({
+  id: '/api/public/v1/agents',
+  path: '/api/public/v1/agents',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiPublicV1BidsRoute = ApiPublicV1BidsRouteImport.update({
+  id: '/api/public/v1/bids',
+  path: '/api/public/v1/bids',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiPublicV1MeRoute = ApiPublicV1MeRouteImport.update({
+  id: '/api/public/v1/me',
+  path: '/api/public/v1/me',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiPublicV1MessagesRoute = ApiPublicV1MessagesRouteImport.update({
+  id: '/api/public/v1/messages',
+  path: '/api/public/v1/messages',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiPublicV1SubmitRoute = ApiPublicV1SubmitRouteImport.update({
+  id: '/api/public/v1/submit',
+  path: '/api/public/v1/submit',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiPublicV1TasksRoute = ApiPublicV1TasksRouteImport.update({
+  id: '/api/public/v1/tasks',
+  path: '/api/public/v1/tasks',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/docs': typeof DocsRoute
   '/feed': typeof FeedRoute
+  '/dashboard': typeof AuthenticatedDashboardRoute
   '/agents/$slug': typeof AgentsSlugRoute
+  '/tasks/$taskId': typeof TasksTaskIdRoute
   '/agents/': typeof AgentsIndexRoute
   '/tasks/': typeof TasksIndexRoute
+  '/agents/new': typeof AuthenticatedAgentsNewRoute
+  '/tasks/new': typeof AuthenticatedTasksNewRoute
+  '/agents/$slug/edit': typeof AuthenticatedAgentsSlugEditRoute
+  '/api/public/v1/agents': typeof ApiPublicV1AgentsRoute
+  '/api/public/v1/bids': typeof ApiPublicV1BidsRoute
+  '/api/public/v1/me': typeof ApiPublicV1MeRoute
+  '/api/public/v1/messages': typeof ApiPublicV1MessagesRoute
+  '/api/public/v1/submit': typeof ApiPublicV1SubmitRoute
+  '/api/public/v1/tasks': typeof ApiPublicV1TasksRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/docs': typeof DocsRoute
   '/feed': typeof FeedRoute
+  '/dashboard': typeof AuthenticatedDashboardRoute
   '/agents/$slug': typeof AgentsSlugRoute
+  '/tasks/$taskId': typeof TasksTaskIdRoute
   '/agents': typeof AgentsIndexRoute
   '/tasks': typeof TasksIndexRoute
+  '/agents/new': typeof AuthenticatedAgentsNewRoute
+  '/tasks/new': typeof AuthenticatedTasksNewRoute
+  '/agents/$slug/edit': typeof AuthenticatedAgentsSlugEditRoute
+  '/api/public/v1/agents': typeof ApiPublicV1AgentsRoute
+  '/api/public/v1/bids': typeof ApiPublicV1BidsRoute
+  '/api/public/v1/me': typeof ApiPublicV1MeRoute
+  '/api/public/v1/messages': typeof ApiPublicV1MessagesRoute
+  '/api/public/v1/submit': typeof ApiPublicV1SubmitRoute
+  '/api/public/v1/tasks': typeof ApiPublicV1TasksRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/auth': typeof AuthRoute
   '/docs': typeof DocsRoute
   '/feed': typeof FeedRoute
+  '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
   '/agents/$slug': typeof AgentsSlugRoute
+  '/tasks/$taskId': typeof TasksTaskIdRoute
   '/agents/': typeof AgentsIndexRoute
   '/tasks/': typeof TasksIndexRoute
+  '/_authenticated/agents/new': typeof AuthenticatedAgentsNewRoute
+  '/_authenticated/tasks/new': typeof AuthenticatedTasksNewRoute
+  '/_authenticated/agents/$slug/edit': typeof AuthenticatedAgentsSlugEditRoute
+  '/api/public/v1/agents': typeof ApiPublicV1AgentsRoute
+  '/api/public/v1/bids': typeof ApiPublicV1BidsRoute
+  '/api/public/v1/me': typeof ApiPublicV1MeRoute
+  '/api/public/v1/messages': typeof ApiPublicV1MessagesRoute
+  '/api/public/v1/submit': typeof ApiPublicV1SubmitRoute
+  '/api/public/v1/tasks': typeof ApiPublicV1TasksRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    '/' | '/auth' | '/docs' | '/feed' | '/agents/$slug' | '/agents/' | '/tasks/'
-  fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/auth' | '/docs' | '/feed' | '/agents/$slug' | '/agents' | '/tasks'
-  id:
-    | '__root__'
     | '/'
     | '/auth'
     | '/docs'
     | '/feed'
+    | '/dashboard'
     | '/agents/$slug'
+    | '/tasks/$taskId'
     | '/agents/'
     | '/tasks/'
+    | '/agents/new'
+    | '/tasks/new'
+    | '/agents/$slug/edit'
+    | '/api/public/v1/agents'
+    | '/api/public/v1/bids'
+    | '/api/public/v1/me'
+    | '/api/public/v1/messages'
+    | '/api/public/v1/submit'
+    | '/api/public/v1/tasks'
+  fileRoutesByTo: FileRoutesByTo
+  to:
+    | '/'
+    | '/auth'
+    | '/docs'
+    | '/feed'
+    | '/dashboard'
+    | '/agents/$slug'
+    | '/tasks/$taskId'
+    | '/agents'
+    | '/tasks'
+    | '/agents/new'
+    | '/tasks/new'
+    | '/agents/$slug/edit'
+    | '/api/public/v1/agents'
+    | '/api/public/v1/bids'
+    | '/api/public/v1/me'
+    | '/api/public/v1/messages'
+    | '/api/public/v1/submit'
+    | '/api/public/v1/tasks'
+  id:
+    | '__root__'
+    | '/'
+    | '/_authenticated'
+    | '/auth'
+    | '/docs'
+    | '/feed'
+    | '/_authenticated/dashboard'
+    | '/agents/$slug'
+    | '/tasks/$taskId'
+    | '/agents/'
+    | '/tasks/'
+    | '/_authenticated/agents/new'
+    | '/_authenticated/tasks/new'
+    | '/_authenticated/agents/$slug/edit'
+    | '/api/public/v1/agents'
+    | '/api/public/v1/bids'
+    | '/api/public/v1/me'
+    | '/api/public/v1/messages'
+    | '/api/public/v1/submit'
+    | '/api/public/v1/tasks'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
   AuthRoute: typeof AuthRoute
   DocsRoute: typeof DocsRoute
   FeedRoute: typeof FeedRoute
   AgentsSlugRoute: typeof AgentsSlugRoute
+  TasksTaskIdRoute: typeof TasksTaskIdRoute
   AgentsIndexRoute: typeof AgentsIndexRoute
   TasksIndexRoute: typeof TasksIndexRoute
+  ApiPublicV1AgentsRoute: typeof ApiPublicV1AgentsRoute
+  ApiPublicV1BidsRoute: typeof ApiPublicV1BidsRoute
+  ApiPublicV1MeRoute: typeof ApiPublicV1MeRoute
+  ApiPublicV1MessagesRoute: typeof ApiPublicV1MessagesRoute
+  ApiPublicV1SubmitRoute: typeof ApiPublicV1SubmitRoute
+  ApiPublicV1TasksRoute: typeof ApiPublicV1TasksRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -115,6 +276,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated': {
+      id: '/_authenticated'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AuthenticatedRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/auth': {
@@ -138,6 +306,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof FeedRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated/dashboard': {
+      id: '/_authenticated/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof AuthenticatedDashboardRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/agents/': {
       id: '/agents/'
       path: '/agents'
@@ -159,17 +334,112 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TasksIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/tasks/$taskId': {
+      id: '/tasks/$taskId'
+      path: '/tasks/$taskId'
+      fullPath: '/tasks/$taskId'
+      preLoaderRoute: typeof TasksTaskIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated/agents/new': {
+      id: '/_authenticated/agents/new'
+      path: '/agents/new'
+      fullPath: '/agents/new'
+      preLoaderRoute: typeof AuthenticatedAgentsNewRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/tasks/new': {
+      id: '/_authenticated/tasks/new'
+      path: '/tasks/new'
+      fullPath: '/tasks/new'
+      preLoaderRoute: typeof AuthenticatedTasksNewRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/agents/$slug/edit': {
+      id: '/_authenticated/agents/$slug/edit'
+      path: '/agents/$slug/edit'
+      fullPath: '/agents/$slug/edit'
+      preLoaderRoute: typeof AuthenticatedAgentsSlugEditRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/api/public/v1/agents': {
+      id: '/api/public/v1/agents'
+      path: '/api/public/v1/agents'
+      fullPath: '/api/public/v1/agents'
+      preLoaderRoute: typeof ApiPublicV1AgentsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/public/v1/bids': {
+      id: '/api/public/v1/bids'
+      path: '/api/public/v1/bids'
+      fullPath: '/api/public/v1/bids'
+      preLoaderRoute: typeof ApiPublicV1BidsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/public/v1/me': {
+      id: '/api/public/v1/me'
+      path: '/api/public/v1/me'
+      fullPath: '/api/public/v1/me'
+      preLoaderRoute: typeof ApiPublicV1MeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/public/v1/messages': {
+      id: '/api/public/v1/messages'
+      path: '/api/public/v1/messages'
+      fullPath: '/api/public/v1/messages'
+      preLoaderRoute: typeof ApiPublicV1MessagesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/public/v1/submit': {
+      id: '/api/public/v1/submit'
+      path: '/api/public/v1/submit'
+      fullPath: '/api/public/v1/submit'
+      preLoaderRoute: typeof ApiPublicV1SubmitRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/public/v1/tasks': {
+      id: '/api/public/v1/tasks'
+      path: '/api/public/v1/tasks'
+      fullPath: '/api/public/v1/tasks'
+      preLoaderRoute: typeof ApiPublicV1TasksRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
+interface AuthenticatedRouteRouteChildren {
+  AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRoute
+  AuthenticatedAgentsNewRoute: typeof AuthenticatedAgentsNewRoute
+  AuthenticatedTasksNewRoute: typeof AuthenticatedTasksNewRoute
+  AuthenticatedAgentsSlugEditRoute: typeof AuthenticatedAgentsSlugEditRoute
+}
+
+const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedDashboardRoute: AuthenticatedDashboardRoute,
+  AuthenticatedAgentsNewRoute: AuthenticatedAgentsNewRoute,
+  AuthenticatedTasksNewRoute: AuthenticatedTasksNewRoute,
+  AuthenticatedAgentsSlugEditRoute: AuthenticatedAgentsSlugEditRoute,
+}
+
+const AuthenticatedRouteRouteWithChildren =
+  AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
   AuthRoute: AuthRoute,
   DocsRoute: DocsRoute,
   FeedRoute: FeedRoute,
   AgentsSlugRoute: AgentsSlugRoute,
+  TasksTaskIdRoute: TasksTaskIdRoute,
   AgentsIndexRoute: AgentsIndexRoute,
   TasksIndexRoute: TasksIndexRoute,
+  ApiPublicV1AgentsRoute: ApiPublicV1AgentsRoute,
+  ApiPublicV1BidsRoute: ApiPublicV1BidsRoute,
+  ApiPublicV1MeRoute: ApiPublicV1MeRoute,
+  ApiPublicV1MessagesRoute: ApiPublicV1MessagesRoute,
+  ApiPublicV1SubmitRoute: ApiPublicV1SubmitRoute,
+  ApiPublicV1TasksRoute: ApiPublicV1TasksRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

@@ -44,7 +44,10 @@ function Feed() {
   });
 
   const toggleFollow = async (agentId: string) => {
-    if (!user) return toast.error("Sign in to follow agents");
+    if (!user) {
+      toast.error("Sign in to follow agents");
+      return;
+    }
     if (follows.includes(agentId)) {
       await supabase.from("follows").delete().eq("follower_id", user.id).eq("agent_id", agentId);
     } else {

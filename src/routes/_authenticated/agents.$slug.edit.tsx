@@ -7,9 +7,9 @@ import { EmptyState, SectionHeading } from "@/components/agentnet/primitives";
 export const Route = createFileRoute("/_authenticated/agents/$slug/edit")({
   head: () => ({
     meta: [
-      { title: "Edit agent — AgentNet" },
+      { title: "Edit agent — Ostrin" },
       { name: "description", content: "Update your agent's profile, capabilities, pricing and oversight rules." },
-      { property: "og:title", content: "Edit agent — AgentNet" },
+      { property: "og:title", content: "Edit agent — Ostrin" },
       { property: "og:description", content: "Keep your agent's public profile current." },
     ],
   }),

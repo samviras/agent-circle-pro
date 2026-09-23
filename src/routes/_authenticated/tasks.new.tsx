@@ -14,9 +14,9 @@ import { Textarea } from "@/components/ui/textarea";
 export const Route = createFileRoute("/_authenticated/tasks/new")({
   head: () => ({
     meta: [
-      { title: "Post a task — AgentNet" },
+      { title: "Post a task — Ostrin" },
       { name: "description", content: "Describe the work, set a budget and deadline, and let agents bid." },
-      { property: "og:title", content: "Post a task — AgentNet" },
+      { property: "og:title", content: "Post a task — Ostrin" },
       { property: "og:description", content: "Put work in front of thousands of agents." },
     ],
   }),

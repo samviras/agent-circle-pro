@@ -11,12 +11,12 @@ import { cn } from "@/lib/utils";
 export const Route = createFileRoute("/agents/")({
   head: () => ({
     meta: [
-      { title: "Agent directory — AgentNet" },
+      { title: "Agent directory — Ostrin" },
       {
         name: "description",
         content: "Search and filter AI agents by capability, rating, price and availability.",
       },
-      { property: "og:title", content: "Agent directory — AgentNet" },
+      { property: "og:title", content: "Agent directory — Ostrin" },
       { property: "og:description", content: "Find the right agent for the job." },
     ],
   }),

@@ -15,10 +15,12 @@ import { Route as AuthRouteImport } from './routes/auth'
 import { Route as ConnectRouteImport } from './routes/connect'
 import { Route as DocsRouteImport } from './routes/docs'
 import { Route as FeedRouteImport } from './routes/feed'
+import { Route as SkillDotmdRouteImport } from './routes/skill[.]md'
 import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
 import { Route as AuthenticatedSettingsRouteImport } from './routes/_authenticated/settings'
 import { Route as AgentsIndexRouteImport } from './routes/agents.index'
 import { Route as AgentsSlugRouteImport } from './routes/agents.$slug'
+import { Route as ClaimTokenRouteImport } from './routes/claim.$token'
 import { Route as TasksIndexRouteImport } from './routes/tasks.index'
 import { Route as TasksTaskIdRouteImport } from './routes/tasks.$taskId'
 import { Route as AuthenticatedAgentsNewRouteImport } from './routes/_authenticated/agents.new'
@@ -28,6 +30,7 @@ import { Route as ApiPublicV1AgentsRouteImport } from './routes/api/public/v1/ag
 import { Route as ApiPublicV1BidsRouteImport } from './routes/api/public/v1/bids'
 import { Route as ApiPublicV1MeRouteImport } from './routes/api/public/v1/me'
 import { Route as ApiPublicV1MessagesRouteImport } from './routes/api/public/v1/messages'
+import { Route as ApiPublicV1RegisterRouteImport } from './routes/api/public/v1/register'
 import { Route as ApiPublicV1SubmitRouteImport } from './routes/api/public/v1/submit'
 import { Route as ApiPublicV1TasksRouteImport } from './routes/api/public/v1/tasks'
 
@@ -60,6 +63,11 @@ const FeedRoute = FeedRouteImport.update({
   path: '/feed',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SkillDotmdRoute = SkillDotmdRouteImport.update({
+  id: '/skill.md',
+  path: '/skill.md',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AuthenticatedDashboardRoute = AuthenticatedDashboardRouteImport.update({
   id: '/dashboard',
   path: '/dashboard',
@@ -78,6 +86,11 @@ const AgentsIndexRoute = AgentsIndexRouteImport.update({
 const AgentsSlugRoute = AgentsSlugRouteImport.update({
   id: '/agents/$slug',
   path: '/agents/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ClaimTokenRoute = ClaimTokenRouteImport.update({
+  id: '/claim/$token',
+  path: '/claim/$token',
   getParentRoute: () => rootRouteImport,
 } as any)
 const TasksIndexRoute = TasksIndexRouteImport.update({
@@ -126,6 +139,11 @@ const ApiPublicV1MessagesRoute = ApiPublicV1MessagesRouteImport.update({
   path: '/api/public/v1/messages',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiPublicV1RegisterRoute = ApiPublicV1RegisterRouteImport.update({
+  id: '/api/public/v1/register',
+  path: '/api/public/v1/register',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiPublicV1SubmitRoute = ApiPublicV1SubmitRouteImport.update({
   id: '/api/public/v1/submit',
   path: '/api/public/v1/submit',
@@ -143,9 +161,11 @@ export interface FileRoutesByFullPath {
   '/connect': typeof ConnectRoute
   '/docs': typeof DocsRoute
   '/feed': typeof FeedRoute
+  '/skill.md': typeof SkillDotmdRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/settings': typeof AuthenticatedSettingsRoute
   '/agents/$slug': typeof AgentsSlugRoute
+  '/claim/$token': typeof ClaimTokenRoute
   '/tasks/$taskId': typeof TasksTaskIdRoute
   '/agents/': typeof AgentsIndexRoute
   '/tasks/': typeof TasksIndexRoute
@@ -156,6 +176,7 @@ export interface FileRoutesByFullPath {
   '/api/public/v1/bids': typeof ApiPublicV1BidsRoute
   '/api/public/v1/me': typeof ApiPublicV1MeRoute
   '/api/public/v1/messages': typeof ApiPublicV1MessagesRoute
+  '/api/public/v1/register': typeof ApiPublicV1RegisterRoute
   '/api/public/v1/submit': typeof ApiPublicV1SubmitRoute
   '/api/public/v1/tasks': typeof ApiPublicV1TasksRoute
 }
@@ -165,9 +186,11 @@ export interface FileRoutesByTo {
   '/connect': typeof ConnectRoute
   '/docs': typeof DocsRoute
   '/feed': typeof FeedRoute
+  '/skill.md': typeof SkillDotmdRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/settings': typeof AuthenticatedSettingsRoute
   '/agents/$slug': typeof AgentsSlugRoute
+  '/claim/$token': typeof ClaimTokenRoute
   '/tasks/$taskId': typeof TasksTaskIdRoute
   '/agents': typeof AgentsIndexRoute
   '/tasks': typeof TasksIndexRoute
@@ -178,6 +201,7 @@ export interface FileRoutesByTo {
   '/api/public/v1/bids': typeof ApiPublicV1BidsRoute
   '/api/public/v1/me': typeof ApiPublicV1MeRoute
   '/api/public/v1/messages': typeof ApiPublicV1MessagesRoute
+  '/api/public/v1/register': typeof ApiPublicV1RegisterRoute
   '/api/public/v1/submit': typeof ApiPublicV1SubmitRoute
   '/api/public/v1/tasks': typeof ApiPublicV1TasksRoute
 }
@@ -189,9 +213,11 @@ export interface FileRoutesById {
   '/connect': typeof ConnectRoute
   '/docs': typeof DocsRoute
   '/feed': typeof FeedRoute
+  '/skill.md': typeof SkillDotmdRoute
   '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
   '/_authenticated/settings': typeof AuthenticatedSettingsRoute
   '/agents/$slug': typeof AgentsSlugRoute
+  '/claim/$token': typeof ClaimTokenRoute
   '/tasks/$taskId': typeof TasksTaskIdRoute
   '/agents/': typeof AgentsIndexRoute
   '/tasks/': typeof TasksIndexRoute
@@ -202,6 +228,7 @@ export interface FileRoutesById {
   '/api/public/v1/bids': typeof ApiPublicV1BidsRoute
   '/api/public/v1/me': typeof ApiPublicV1MeRoute
   '/api/public/v1/messages': typeof ApiPublicV1MessagesRoute
+  '/api/public/v1/register': typeof ApiPublicV1RegisterRoute
   '/api/public/v1/submit': typeof ApiPublicV1SubmitRoute
   '/api/public/v1/tasks': typeof ApiPublicV1TasksRoute
 }
@@ -213,9 +240,11 @@ export interface FileRouteTypes {
     | '/connect'
     | '/docs'
     | '/feed'
+    | '/skill.md'
     | '/dashboard'
     | '/settings'
     | '/agents/$slug'
+    | '/claim/$token'
     | '/tasks/$taskId'
     | '/agents/'
     | '/tasks/'
@@ -226,6 +255,7 @@ export interface FileRouteTypes {
     | '/api/public/v1/bids'
     | '/api/public/v1/me'
     | '/api/public/v1/messages'
+    | '/api/public/v1/register'
     | '/api/public/v1/submit'
     | '/api/public/v1/tasks'
   fileRoutesByTo: FileRoutesByTo
@@ -235,9 +265,11 @@ export interface FileRouteTypes {
     | '/connect'
     | '/docs'
     | '/feed'
+    | '/skill.md'
     | '/dashboard'
     | '/settings'
     | '/agents/$slug'
+    | '/claim/$token'
     | '/tasks/$taskId'
     | '/agents'
     | '/tasks'
@@ -248,6 +280,7 @@ export interface FileRouteTypes {
     | '/api/public/v1/bids'
     | '/api/public/v1/me'
     | '/api/public/v1/messages'
+    | '/api/public/v1/register'
     | '/api/public/v1/submit'
     | '/api/public/v1/tasks'
   id:
@@ -258,9 +291,11 @@ export interface FileRouteTypes {
     | '/connect'
     | '/docs'
     | '/feed'
+    | '/skill.md'
     | '/_authenticated/dashboard'
     | '/_authenticated/settings'
     | '/agents/$slug'
+    | '/claim/$token'
     | '/tasks/$taskId'
     | '/agents/'
     | '/tasks/'
@@ -271,6 +306,7 @@ export interface FileRouteTypes {
     | '/api/public/v1/bids'
     | '/api/public/v1/me'
     | '/api/public/v1/messages'
+    | '/api/public/v1/register'
     | '/api/public/v1/submit'
     | '/api/public/v1/tasks'
   fileRoutesById: FileRoutesById
@@ -282,7 +318,9 @@ export interface RootRouteChildren {
   ConnectRoute: typeof ConnectRoute
   DocsRoute: typeof DocsRoute
   FeedRoute: typeof FeedRoute
+  SkillDotmdRoute: typeof SkillDotmdRoute
   AgentsSlugRoute: typeof AgentsSlugRoute
+  ClaimTokenRoute: typeof ClaimTokenRoute
   TasksTaskIdRoute: typeof TasksTaskIdRoute
   AgentsIndexRoute: typeof AgentsIndexRoute
   TasksIndexRoute: typeof TasksIndexRoute
@@ -290,6 +328,7 @@ export interface RootRouteChildren {
   ApiPublicV1BidsRoute: typeof ApiPublicV1BidsRoute
   ApiPublicV1MeRoute: typeof ApiPublicV1MeRoute
   ApiPublicV1MessagesRoute: typeof ApiPublicV1MessagesRoute
+  ApiPublicV1RegisterRoute: typeof ApiPublicV1RegisterRoute
   ApiPublicV1SubmitRoute: typeof ApiPublicV1SubmitRoute
   ApiPublicV1TasksRoute: typeof ApiPublicV1TasksRoute
 }
@@ -338,6 +377,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof FeedRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/skill.md': {
+      id: '/skill.md'
+      path: '/skill.md'
+      fullPath: '/skill.md'
+      preLoaderRoute: typeof SkillDotmdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/_authenticated/dashboard': {
       id: '/_authenticated/dashboard'
       path: '/dashboard'
@@ -364,6 +410,13 @@ declare module '@tanstack/react-router' {
       path: '/agents/$slug'
       fullPath: '/agents/$slug'
       preLoaderRoute: typeof AgentsSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/claim/$token': {
+      id: '/claim/$token'
+      path: '/claim/$token'
+      fullPath: '/claim/$token'
+      preLoaderRoute: typeof ClaimTokenRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/tasks/': {
@@ -429,6 +482,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiPublicV1MessagesRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/public/v1/register': {
+      id: '/api/public/v1/register'
+      path: '/api/public/v1/register'
+      fullPath: '/api/public/v1/register'
+      preLoaderRoute: typeof ApiPublicV1RegisterRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/public/v1/submit': {
       id: '/api/public/v1/submit'
       path: '/api/public/v1/submit'
@@ -472,7 +532,9 @@ const rootRouteChildren: RootRouteChildren = {
   ConnectRoute: ConnectRoute,
   DocsRoute: DocsRoute,
   FeedRoute: FeedRoute,
+  SkillDotmdRoute: SkillDotmdRoute,
   AgentsSlugRoute: AgentsSlugRoute,
+  ClaimTokenRoute: ClaimTokenRoute,
   TasksTaskIdRoute: TasksTaskIdRoute,
   AgentsIndexRoute: AgentsIndexRoute,
   TasksIndexRoute: TasksIndexRoute,
@@ -480,6 +542,7 @@ const rootRouteChildren: RootRouteChildren = {
   ApiPublicV1BidsRoute: ApiPublicV1BidsRoute,
   ApiPublicV1MeRoute: ApiPublicV1MeRoute,
   ApiPublicV1MessagesRoute: ApiPublicV1MessagesRoute,
+  ApiPublicV1RegisterRoute: ApiPublicV1RegisterRoute,
   ApiPublicV1SubmitRoute: ApiPublicV1SubmitRoute,
   ApiPublicV1TasksRoute: ApiPublicV1TasksRoute,
 }

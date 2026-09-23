@@ -15,6 +15,7 @@ import { Route as AuthRouteImport } from './routes/auth'
 import { Route as DocsRouteImport } from './routes/docs'
 import { Route as FeedRouteImport } from './routes/feed'
 import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
+import { Route as AuthenticatedSettingsRouteImport } from './routes/_authenticated/settings'
 import { Route as AgentsIndexRouteImport } from './routes/agents.index'
 import { Route as AgentsSlugRouteImport } from './routes/agents.$slug'
 import { Route as TasksIndexRouteImport } from './routes/tasks.index'
@@ -56,6 +57,11 @@ const FeedRoute = FeedRouteImport.update({
 const AuthenticatedDashboardRoute = AuthenticatedDashboardRouteImport.update({
   id: '/dashboard',
   path: '/dashboard',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedSettingsRoute = AuthenticatedSettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const AgentsIndexRoute = AgentsIndexRouteImport.update({
@@ -131,6 +137,7 @@ export interface FileRoutesByFullPath {
   '/docs': typeof DocsRoute
   '/feed': typeof FeedRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
+  '/settings': typeof AuthenticatedSettingsRoute
   '/agents/$slug': typeof AgentsSlugRoute
   '/tasks/$taskId': typeof TasksTaskIdRoute
   '/agents/': typeof AgentsIndexRoute
@@ -151,6 +158,7 @@ export interface FileRoutesByTo {
   '/docs': typeof DocsRoute
   '/feed': typeof FeedRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
+  '/settings': typeof AuthenticatedSettingsRoute
   '/agents/$slug': typeof AgentsSlugRoute
   '/tasks/$taskId': typeof TasksTaskIdRoute
   '/agents': typeof AgentsIndexRoute
@@ -173,6 +181,7 @@ export interface FileRoutesById {
   '/docs': typeof DocsRoute
   '/feed': typeof FeedRoute
   '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
+  '/_authenticated/settings': typeof AuthenticatedSettingsRoute
   '/agents/$slug': typeof AgentsSlugRoute
   '/tasks/$taskId': typeof TasksTaskIdRoute
   '/agents/': typeof AgentsIndexRoute
@@ -195,6 +204,7 @@ export interface FileRouteTypes {
     | '/docs'
     | '/feed'
     | '/dashboard'
+    | '/settings'
     | '/agents/$slug'
     | '/tasks/$taskId'
     | '/agents/'
@@ -215,6 +225,7 @@ export interface FileRouteTypes {
     | '/docs'
     | '/feed'
     | '/dashboard'
+    | '/settings'
     | '/agents/$slug'
     | '/tasks/$taskId'
     | '/agents'
@@ -236,6 +247,7 @@ export interface FileRouteTypes {
     | '/docs'
     | '/feed'
     | '/_authenticated/dashboard'
+    | '/_authenticated/settings'
     | '/agents/$slug'
     | '/tasks/$taskId'
     | '/agents/'
@@ -311,6 +323,13 @@ declare module '@tanstack/react-router' {
       path: '/dashboard'
       fullPath: '/dashboard'
       preLoaderRoute: typeof AuthenticatedDashboardRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/settings': {
+      id: '/_authenticated/settings'
+      path: '/settings'
+      fullPath: '/settings'
+      preLoaderRoute: typeof AuthenticatedSettingsRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
     '/agents/': {
@@ -409,6 +428,7 @@ declare module '@tanstack/react-router' {
 
 interface AuthenticatedRouteRouteChildren {
   AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRoute
+  AuthenticatedSettingsRoute: typeof AuthenticatedSettingsRoute
   AuthenticatedAgentsNewRoute: typeof AuthenticatedAgentsNewRoute
   AuthenticatedTasksNewRoute: typeof AuthenticatedTasksNewRoute
   AuthenticatedAgentsSlugEditRoute: typeof AuthenticatedAgentsSlugEditRoute
@@ -416,6 +436,7 @@ interface AuthenticatedRouteRouteChildren {
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedDashboardRoute: AuthenticatedDashboardRoute,
+  AuthenticatedSettingsRoute: AuthenticatedSettingsRoute,
   AuthenticatedAgentsNewRoute: AuthenticatedAgentsNewRoute,
   AuthenticatedTasksNewRoute: AuthenticatedTasksNewRoute,
   AuthenticatedAgentsSlugEditRoute: AuthenticatedAgentsSlugEditRoute,

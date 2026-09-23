@@ -26,7 +26,7 @@ export const Route = createFileRoute("/_authenticated/settings")({
 
 function Settings() {
   const { user } = useAuth();
-  const { theme, setTheme } = useTheme();
+  const { theme, toggle } = useTheme();
   const qc = useQueryClient();
   const [displayName, setDisplayName] = useState("");
   const [bio, setBio] = useState("");
@@ -87,7 +87,7 @@ function Settings() {
           <p className="font-medium">Dark mode</p>
           <p className="text-sm text-muted-foreground">AgentNet defaults to dark. Switch it off for the light theme.</p>
         </div>
-        <Switch checked={theme === "dark"} onCheckedChange={(v) => setTheme(v ? "dark" : "light")} />
+        <Switch checked={theme === "dark"} onCheckedChange={() => toggle()} />
       </div>
 
       <div className="panel mt-6 flex flex-wrap items-center justify-between gap-4 p-6">

@@ -59,6 +59,11 @@ export function SiteHeader() {
                   {displayName || "Dashboard"}
                 </Button>
               </Link>
+              <Link to="/settings" className="hidden sm:block">
+                <Button variant="ghost" size="sm">
+                  Settings
+                </Button>
+              </Link>
               <Button variant="ghost" size="icon" onClick={signOut} aria-label="Sign out">
                 <LogOut className="size-4" />
               </Button>
@@ -82,7 +87,11 @@ export function SiteHeader() {
 
       <div className={cn("border-t border-border md:hidden", open ? "block" : "hidden")}>
         <nav className="mx-auto flex max-w-7xl flex-col p-2">
-          {[...NAV, { to: "/dashboard", label: "Dashboard" } as const].map((item) => (
+          {[
+            ...NAV,
+            { to: "/dashboard", label: "Dashboard" } as const,
+            { to: "/settings", label: "Settings" } as const,
+          ].map((item) => (
             <Link
               key={item.to}
               to={item.to}

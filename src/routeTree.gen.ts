@@ -19,6 +19,9 @@ import { Route as AgentsIndexRouteImport } from './routes/agents.index'
 import { Route as AgentsSlugRouteImport } from './routes/agents.$slug'
 import { Route as TasksIndexRouteImport } from './routes/tasks.index'
 import { Route as TasksTaskIdRouteImport } from './routes/tasks.$taskId'
+import { Route as AuthenticatedAgentsNewRouteImport } from './routes/_authenticated/agents.new'
+import { Route as AuthenticatedTasksNewRouteImport } from './routes/_authenticated/tasks.new'
+import { Route as AuthenticatedAgentsSlugEditRouteImport } from './routes/_authenticated/agents.$slug.edit'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -69,6 +72,22 @@ const TasksTaskIdRoute = TasksTaskIdRouteImport.update({
   path: '/tasks/$taskId',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedAgentsNewRoute = AuthenticatedAgentsNewRouteImport.update({
+  id: '/agents/new',
+  path: '/agents/new',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedTasksNewRoute = AuthenticatedTasksNewRouteImport.update({
+  id: '/tasks/new',
+  path: '/tasks/new',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedAgentsSlugEditRoute =
+  AuthenticatedAgentsSlugEditRouteImport.update({
+    id: '/agents/$slug/edit',
+    path: '/agents/$slug/edit',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -80,6 +99,9 @@ export interface FileRoutesByFullPath {
   '/tasks/$taskId': typeof TasksTaskIdRoute
   '/agents/': typeof AgentsIndexRoute
   '/tasks/': typeof TasksIndexRoute
+  '/agents/new': typeof AuthenticatedAgentsNewRoute
+  '/tasks/new': typeof AuthenticatedTasksNewRoute
+  '/agents/$slug/edit': typeof AuthenticatedAgentsSlugEditRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -91,6 +113,9 @@ export interface FileRoutesByTo {
   '/tasks/$taskId': typeof TasksTaskIdRoute
   '/agents': typeof AgentsIndexRoute
   '/tasks': typeof TasksIndexRoute
+  '/agents/new': typeof AuthenticatedAgentsNewRoute
+  '/tasks/new': typeof AuthenticatedTasksNewRoute
+  '/agents/$slug/edit': typeof AuthenticatedAgentsSlugEditRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -104,6 +129,9 @@ export interface FileRoutesById {
   '/tasks/$taskId': typeof TasksTaskIdRoute
   '/agents/': typeof AgentsIndexRoute
   '/tasks/': typeof TasksIndexRoute
+  '/_authenticated/agents/new': typeof AuthenticatedAgentsNewRoute
+  '/_authenticated/tasks/new': typeof AuthenticatedTasksNewRoute
+  '/_authenticated/agents/$slug/edit': typeof AuthenticatedAgentsSlugEditRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -117,6 +145,9 @@ export interface FileRouteTypes {
     | '/tasks/$taskId'
     | '/agents/'
     | '/tasks/'
+    | '/agents/new'
+    | '/tasks/new'
+    | '/agents/$slug/edit'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -128,6 +159,9 @@ export interface FileRouteTypes {
     | '/tasks/$taskId'
     | '/agents'
     | '/tasks'
+    | '/agents/new'
+    | '/tasks/new'
+    | '/agents/$slug/edit'
   id:
     | '__root__'
     | '/'
@@ -140,6 +174,9 @@ export interface FileRouteTypes {
     | '/tasks/$taskId'
     | '/agents/'
     | '/tasks/'
+    | '/_authenticated/agents/new'
+    | '/_authenticated/tasks/new'
+    | '/_authenticated/agents/$slug/edit'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -226,15 +263,42 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TasksTaskIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated/agents/new': {
+      id: '/_authenticated/agents/new'
+      path: '/agents/new'
+      fullPath: '/agents/new'
+      preLoaderRoute: typeof AuthenticatedAgentsNewRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/tasks/new': {
+      id: '/_authenticated/tasks/new'
+      path: '/tasks/new'
+      fullPath: '/tasks/new'
+      preLoaderRoute: typeof AuthenticatedTasksNewRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/agents/$slug/edit': {
+      id: '/_authenticated/agents/$slug/edit'
+      path: '/agents/$slug/edit'
+      fullPath: '/agents/$slug/edit'
+      preLoaderRoute: typeof AuthenticatedAgentsSlugEditRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
   }
 }
 
 interface AuthenticatedRouteRouteChildren {
   AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRoute
+  AuthenticatedAgentsNewRoute: typeof AuthenticatedAgentsNewRoute
+  AuthenticatedTasksNewRoute: typeof AuthenticatedTasksNewRoute
+  AuthenticatedAgentsSlugEditRoute: typeof AuthenticatedAgentsSlugEditRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedDashboardRoute: AuthenticatedDashboardRoute,
+  AuthenticatedAgentsNewRoute: AuthenticatedAgentsNewRoute,
+  AuthenticatedTasksNewRoute: AuthenticatedTasksNewRoute,
+  AuthenticatedAgentsSlugEditRoute: AuthenticatedAgentsSlugEditRoute,
 }
 
 const AuthenticatedRouteRouteWithChildren =

@@ -9,6 +9,7 @@ import { AgentAvatar, EmptyState, SectionHeading } from "@/components/agentnet/p
 import { Button } from "@/components/ui/button";
 
 export const Route = createFileRoute("/feed")({
+  staticData: { sitemap: true },
   head: () => ({
     meta: [
       { title: "Feed — Ostrin" },

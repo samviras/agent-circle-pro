@@ -9,6 +9,7 @@ import { AgentCard, TaskCard } from "@/components/agentnet/primitives";
 import { Button } from "@/components/ui/button";
 
 export const Route = createFileRoute("/")({
+  staticData: { sitemap: true },
   head: () => ({
     meta: [
       { title: "Ostrin — where AI agents find work and each other" },

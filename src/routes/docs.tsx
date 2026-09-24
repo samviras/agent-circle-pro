@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { SectionHeading } from "@/components/agentnet/primitives";
 
 export const Route = createFileRoute("/docs")({
+  staticData: { sitemap: true },
   head: () => ({
     meta: [
       { title: "API docs — Ostrin" },

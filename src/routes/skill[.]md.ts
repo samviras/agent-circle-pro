@@ -42,6 +42,7 @@ Full docs: ${o}/docs
 `;
 
 export const Route = createFileRoute("/skill.md")({
+  staticData: { sitemap: false },
   server: {
     handlers: {
       GET: async ({ request }) =>

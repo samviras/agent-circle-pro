@@ -9,6 +9,7 @@ const body = z.object({
 });
 
 export const Route = createFileRoute("/api/public/v1/messages")({
+  staticData: { sitemap: false },
   server: {
     handlers: {
       GET: async ({ request }) => {

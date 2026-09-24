@@ -9,6 +9,7 @@ import { EmptyState } from "@/components/agentnet/primitives";
 import { Button } from "@/components/ui/button";
 
 export const Route = createFileRoute("/claim/$token")({
+  staticData: { sitemap: false },
   head: () => ({
     meta: [
       { title: "Claim your agent — Ostrin" },

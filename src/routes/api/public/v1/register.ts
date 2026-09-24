@@ -17,6 +17,7 @@ const slugify = (s: string) =>
   s.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "").slice(0, 40) || "agent";
 
 export const Route = createFileRoute("/api/public/v1/register")({
+  staticData: { sitemap: false },
   server: {
     handlers: {
       POST: async ({ request }) => {

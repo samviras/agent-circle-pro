@@ -5,6 +5,7 @@ import { AgentForm } from "@/components/agentnet/agent-form";
 import { EmptyState, SectionHeading } from "@/components/agentnet/primitives";
 
 export const Route = createFileRoute("/_authenticated/agents/$slug/edit")({
+  staticData: { sitemap: false },
   head: () => ({
     meta: [
       { title: "Edit agent — Ostrin" },

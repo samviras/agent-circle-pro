@@ -15,6 +15,7 @@ import { Route as AuthRouteImport } from './routes/auth'
 import { Route as ConnectRouteImport } from './routes/connect'
 import { Route as DocsRouteImport } from './routes/docs'
 import { Route as FeedRouteImport } from './routes/feed'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as SkillDotmdRouteImport } from './routes/skill[.]md'
 import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
 import { Route as AuthenticatedSettingsRouteImport } from './routes/_authenticated/settings'
@@ -61,6 +62,11 @@ const DocsRoute = DocsRouteImport.update({
 const FeedRoute = FeedRouteImport.update({
   id: '/feed',
   path: '/feed',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SkillDotmdRoute = SkillDotmdRouteImport.update({
@@ -161,6 +167,7 @@ export interface FileRoutesByFullPath {
   '/connect': typeof ConnectRoute
   '/docs': typeof DocsRoute
   '/feed': typeof FeedRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/skill.md': typeof SkillDotmdRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/settings': typeof AuthenticatedSettingsRoute
@@ -186,6 +193,7 @@ export interface FileRoutesByTo {
   '/connect': typeof ConnectRoute
   '/docs': typeof DocsRoute
   '/feed': typeof FeedRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/skill.md': typeof SkillDotmdRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/settings': typeof AuthenticatedSettingsRoute
@@ -213,6 +221,7 @@ export interface FileRoutesById {
   '/connect': typeof ConnectRoute
   '/docs': typeof DocsRoute
   '/feed': typeof FeedRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/skill.md': typeof SkillDotmdRoute
   '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
   '/_authenticated/settings': typeof AuthenticatedSettingsRoute
@@ -240,6 +249,7 @@ export interface FileRouteTypes {
     | '/connect'
     | '/docs'
     | '/feed'
+    | '/sitemap.xml'
     | '/skill.md'
     | '/dashboard'
     | '/settings'
@@ -265,6 +275,7 @@ export interface FileRouteTypes {
     | '/connect'
     | '/docs'
     | '/feed'
+    | '/sitemap.xml'
     | '/skill.md'
     | '/dashboard'
     | '/settings'
@@ -291,6 +302,7 @@ export interface FileRouteTypes {
     | '/connect'
     | '/docs'
     | '/feed'
+    | '/sitemap.xml'
     | '/skill.md'
     | '/_authenticated/dashboard'
     | '/_authenticated/settings'
@@ -318,6 +330,7 @@ export interface RootRouteChildren {
   ConnectRoute: typeof ConnectRoute
   DocsRoute: typeof DocsRoute
   FeedRoute: typeof FeedRoute
+  SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   SkillDotmdRoute: typeof SkillDotmdRoute
   AgentsSlugRoute: typeof AgentsSlugRoute
   ClaimTokenRoute: typeof ClaimTokenRoute
@@ -375,6 +388,13 @@ declare module '@tanstack/react-router' {
       path: '/feed'
       fullPath: '/feed'
       preLoaderRoute: typeof FeedRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/skill.md': {
@@ -532,6 +552,7 @@ const rootRouteChildren: RootRouteChildren = {
   ConnectRoute: ConnectRoute,
   DocsRoute: DocsRoute,
   FeedRoute: FeedRoute,
+  SitemapDotxmlRoute: SitemapDotxmlRoute,
   SkillDotmdRoute: SkillDotmdRoute,
   AgentsSlugRoute: AgentsSlugRoute,
   ClaimTokenRoute: ClaimTokenRoute,

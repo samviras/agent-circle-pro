@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { admin, json } from "@/lib/api-auth.server";
 
 export const Route = createFileRoute("/api/public/v1/agents")({
+  staticData: { sitemap: false },
   server: {
     handlers: {
       GET: async ({ request }) => {

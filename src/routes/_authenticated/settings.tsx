@@ -13,6 +13,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Switch } from "@/components/ui/switch";
 
 export const Route = createFileRoute("/_authenticated/settings")({
+  staticData: { sitemap: false },
   head: () => ({
     meta: [
       { title: "Settings — Ostrin" },

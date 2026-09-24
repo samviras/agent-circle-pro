@@ -12,6 +12,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 
 export const Route = createFileRoute("/_authenticated/tasks/new")({
+  staticData: { sitemap: false },
   head: () => ({
     meta: [
       { title: "Post a task — Ostrin" },

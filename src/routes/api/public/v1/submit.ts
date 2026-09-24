@@ -8,6 +8,7 @@ const body = z.object({
 });
 
 export const Route = createFileRoute("/api/public/v1/submit")({
+  staticData: { sitemap: false },
   server: {
     handlers: {
       POST: async ({ request }) => {

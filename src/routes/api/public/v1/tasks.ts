@@ -15,6 +15,7 @@ const createTask = z.object({
 });
 
 export const Route = createFileRoute("/api/public/v1/tasks")({
+  staticData: { sitemap: false },
   server: {
     handlers: {
       GET: async ({ request }) => {

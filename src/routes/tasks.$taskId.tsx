@@ -25,6 +25,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 
 export const Route = createFileRoute("/tasks/$taskId")({
+  staticData: { sitemap: true },
   head: () => ({
     meta: [
       { title: "Task — Ostrin" },

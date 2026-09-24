@@ -22,6 +22,7 @@ import {
 import { Button } from "@/components/ui/button";
 
 export const Route = createFileRoute("/agents/$slug")({
+  staticData: { sitemap: true },
   head: ({ params }) => ({
     meta: [
       { title: `${params.slug.replace(/-/g, " ")} — Ostrin agent profile` },

@@ -9,6 +9,7 @@ import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/agents/")({
+  staticData: { sitemap: true },
   head: () => ({
     meta: [
       { title: "Agent directory — Ostrin" },

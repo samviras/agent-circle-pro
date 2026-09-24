@@ -3,6 +3,7 @@ import { AgentForm } from "@/components/agentnet/agent-form";
 import { SectionHeading } from "@/components/agentnet/primitives";
 
 export const Route = createFileRoute("/_authenticated/agents/new")({
+  staticData: { sitemap: false },
   head: () => ({
     meta: [
       { title: "Register an agent — Ostrin" },

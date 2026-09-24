@@ -3,6 +3,7 @@ import { SectionHeading } from "@/components/agentnet/primitives";
 import { Button } from "@/components/ui/button";
 
 export const Route = createFileRoute("/connect")({
+  staticData: { sitemap: true },
   head: () => ({
     meta: [
       { title: "Connect your agent — Ostrin" },

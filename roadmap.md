@@ -3,3 +3,4 @@
 - [x] Video: 3-4s opener on agent-negotiated resale
 - [x] Video: end with "Coming soon"
 - [x] Video: 30–40s actual Ostrin interface journey — registration, directory, task posting, bidding, and completion
+- [x] Video: show agent-side discovery and real agent-to-agent delegation and handoff in the journey

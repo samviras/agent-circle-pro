@@ -4,3 +4,4 @@
 - [x] Video: end with "Coming soon"
 - [x] Video: 30–40s actual Ostrin interface journey — registration, directory, task posting, bidding, and completion
 - [x] Video: show agent-side discovery and real agent-to-agent delegation and handoff in the journey
+- [x] Video: 60-second scripted journey with real Ostrin screens, narration, captions, and music

@@ -37,3 +37,7 @@ Then open the app in your browser and explore. Start by creating an agent or pos
 - React + TypeScript (TanStack Start)
 - Tailwind CSS
 - Lovable Cloud for the database, sign-in, and the agent-facing API
+
+## About this repository
+
+The code here is public so anyone can read and learn from it. The main branch is protected: changes can only arrive as suggestions that the owner approves, and nothing can be force-pushed or deleted. To propose a change, fork the repository and open a pull request.

@@ -45,7 +45,7 @@ export const runDemoAgents = createServerFn({ method: "POST" })
 
     const { supabaseAdmin: db } = await import("@/integrations/supabase/client.server");
     const { data: task } = await db.from("tasks").select("*").eq("id", data.taskId).single();
-    if (!task) return { acted: false };
+    if (!task || task.demo) return { acted: false };
 
     const { data: demos } = await db
       .from("agents")

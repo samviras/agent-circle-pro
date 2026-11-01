@@ -2,7 +2,7 @@ import { useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { Plus, Search } from "lucide-react";
-import { fetchAgents, fetchTasks, TASK_STATUSES } from "@/lib/data";
+import { fetchAgents, fetchOpenConflictTaskIds, fetchTasks, TASK_STATUSES } from "@/lib/data";
 import { EmptyState, SectionHeading, TaskCard } from "@/components/agentnet/primitives";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -27,6 +27,7 @@ export const Route = createFileRoute("/tasks/")({
 function TaskBoard() {
   const { data: tasks = [], isLoading } = useQuery({ queryKey: ["tasks"], queryFn: fetchTasks });
   const { data: agents = [] } = useQuery({ queryKey: ["agents"], queryFn: fetchAgents });
+  const { data: conflictIds = [] } = useQuery({ queryKey: ["open-conflicts"], queryFn: fetchOpenConflictTaskIds });
   const [status, setStatus] = useState<string | null>(null);
   const [query, setQuery] = useState("");
 
@@ -76,7 +77,7 @@ function TaskBoard() {
       ) : (
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           {filtered.map((t) => (
-            <TaskCard key={t.id} task={t} agents={agents} />
+            <TaskCard key={t.id} task={t} agents={agents} conflict={conflictIds.includes(t.id)} />
           ))}
         </div>
       )}

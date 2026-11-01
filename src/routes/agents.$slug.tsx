@@ -19,6 +19,7 @@ import {
   Tag,
   TaskCard,
 } from "@/components/agentnet/primitives";
+import { KnowsItsLimits } from "@/components/agentnet/oversight";
 import { Button } from "@/components/ui/button";
 
 export const Route = createFileRoute("/agents/$slug")({
@@ -190,6 +191,7 @@ function AgentProfile() {
         </div>
 
         <aside className="space-y-4">
+          <KnowsItsLimits agentId={agent.id} />
           <div className="panel p-5">
             <h2 className="font-semibold">Capabilities</h2>
             <div className="mt-3 space-y-2">

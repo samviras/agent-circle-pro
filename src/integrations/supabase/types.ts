@@ -69,6 +69,87 @@ export type Database = {
           },
         ]
       }
+      agent_actions: {
+        Row: {
+          abstain_reason: string | null
+          abstained: boolean
+          agent_id: string
+          confidence: string
+          confidence_reason: string
+          created_at: string
+          duration_minutes: number | null
+          id: string
+          intent: string
+          kind: string
+          recommended_next_step: string | null
+          scheduled_for: string | null
+          seeded: boolean
+          should_have_abstained: boolean | null
+          status: string
+          subject: string | null
+          summary: string
+          task_id: string | null
+          was_correct: boolean | null
+        }
+        Insert: {
+          abstain_reason?: string | null
+          abstained?: boolean
+          agent_id: string
+          confidence?: string
+          confidence_reason?: string
+          created_at?: string
+          duration_minutes?: number | null
+          id?: string
+          intent?: string
+          kind?: string
+          recommended_next_step?: string | null
+          scheduled_for?: string | null
+          seeded?: boolean
+          should_have_abstained?: boolean | null
+          status?: string
+          subject?: string | null
+          summary: string
+          task_id?: string | null
+          was_correct?: boolean | null
+        }
+        Update: {
+          abstain_reason?: string | null
+          abstained?: boolean
+          agent_id?: string
+          confidence?: string
+          confidence_reason?: string
+          created_at?: string
+          duration_minutes?: number | null
+          id?: string
+          intent?: string
+          kind?: string
+          recommended_next_step?: string | null
+          scheduled_for?: string | null
+          seeded?: boolean
+          should_have_abstained?: boolean | null
+          status?: string
+          subject?: string | null
+          summary?: string
+          task_id?: string | null
+          was_correct?: boolean | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "agent_actions_agent_id_fkey"
+            columns: ["agent_id"]
+            isOneToOne: false
+            referencedRelation: "agents"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "agent_actions_task_id_fkey"
+            columns: ["task_id"]
+            isOneToOne: false
+            referencedRelation: "tasks"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       agent_capabilities: {
         Row: {
           agent_id: string
@@ -439,6 +520,73 @@ export type Database = {
           },
         ]
       }
+      task_conflicts: {
+        Row: {
+          action_a: string
+          action_b: string
+          combined_plan: string | null
+          created_at: string
+          id: string
+          kind: string
+          reason: string
+          resolution: string | null
+          resolved_at: string | null
+          resolved_by: string | null
+          status: string
+          task_id: string
+        }
+        Insert: {
+          action_a: string
+          action_b: string
+          combined_plan?: string | null
+          created_at?: string
+          id?: string
+          kind: string
+          reason: string
+          resolution?: string | null
+          resolved_at?: string | null
+          resolved_by?: string | null
+          status?: string
+          task_id: string
+        }
+        Update: {
+          action_a?: string
+          action_b?: string
+          combined_plan?: string | null
+          created_at?: string
+          id?: string
+          kind?: string
+          reason?: string
+          resolution?: string | null
+          resolved_at?: string | null
+          resolved_by?: string | null
+          status?: string
+          task_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "task_conflicts_action_a_fkey"
+            columns: ["action_a"]
+            isOneToOne: false
+            referencedRelation: "agent_actions"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "task_conflicts_action_b_fkey"
+            columns: ["action_b"]
+            isOneToOne: false
+            referencedRelation: "agent_actions"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "task_conflicts_task_id_fkey"
+            columns: ["task_id"]
+            isOneToOne: false
+            referencedRelation: "tasks"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       task_messages: {
         Row: {
           agent_id: string | null
@@ -491,6 +639,7 @@ export type Database = {
           created_at: string
           created_by: string | null
           deadline: string | null
+          demo: boolean
           description: string
           id: string
           input_spec: string | null
@@ -510,6 +659,7 @@ export type Database = {
           created_at?: string
           created_by?: string | null
           deadline?: string | null
+          demo?: boolean
           description?: string
           id?: string
           input_spec?: string | null
@@ -529,6 +679,7 @@ export type Database = {
           created_at?: string
           created_by?: string | null
           deadline?: string | null
+          demo?: boolean
           description?: string
           id?: string
           input_spec?: string | null

@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { BadgeCheck, Star } from "lucide-react";
+import { AlertTriangle, BadgeCheck, Star } from "lucide-react";
 import { cn } from "@/lib/utils";
 import type { Agent, Task, TaskStatus } from "@/lib/data";
 import { capabilityList } from "@/lib/data";
@@ -127,7 +127,7 @@ export function AgentCard({ agent }: { agent: Agent }) {
   );
 }
 
-export function TaskCard({ task, agents }: { task: Task; agents: Agent[] }) {
+export function TaskCard({ task, agents, conflict }: { task: Task; agents: Agent[]; conflict?: boolean }) {
   const assignee = agents.find((a) => a.id === task.assigned_agent_id);
   return (
     <Link
@@ -137,7 +137,14 @@ export function TaskCard({ task, agents }: { task: Task; agents: Agent[] }) {
     >
       <div className="flex items-start justify-between gap-3">
         <h3 className="text-base font-semibold">{task.title}</h3>
-        <StatusBadge status={task.status} />
+        <div className="flex shrink-0 flex-col items-end gap-1.5">
+          <StatusBadge status={task.status} />
+          {conflict && (
+            <span className="inline-flex items-center gap-1 rounded-full border border-destructive/40 bg-destructive/15 px-2 py-0.5 text-[11px] font-medium text-destructive">
+              <AlertTriangle className="size-3" /> Conflict
+            </span>
+          )}
+        </div>
       </div>
       <p className="line-clamp-2 text-sm text-muted-foreground">{task.description}</p>
       <div className="flex flex-wrap gap-1.5">

@@ -1,4 +1,5 @@
 import { supabase } from "@/integrations/supabase/client";
+import type { AgentAction, TaskConflict } from "@/lib/oversight";
 
 export type Agent = {
   id: string;
@@ -41,6 +42,7 @@ export type Task = {
   posted_by_agent: string | null;
   assigned_agent_id: string | null;
   created_at: string;
+  demo?: boolean;
 };
 
 export type TaskStatus =
@@ -103,6 +105,8 @@ export type Activity = {
   message: string;
   created_at: string;
 };
+
+export type ReplayEntry = Activity & { actor_user_id: string | null };
 
 export type Capability = { id: string; slug: string; name: string };
 
@@ -236,4 +240,47 @@ export function slugify(value: string) {
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/^-|-$/g, "")
     .slice(0, 48);
+}
+
+export async function fetchTaskActions(taskId: string): Promise<AgentAction[]> {
+  return unwrap<AgentAction[]>(
+    await supabase.from("agent_actions").select("*").eq("task_id", taskId).order("created_at", { ascending: true }),
+  );
+}
+
+export async function fetchTaskConflicts(taskId: string): Promise<TaskConflict[]> {
+  return unwrap<TaskConflict[]>(
+    await supabase.from("task_conflicts").select("*").eq("task_id", taskId).order("created_at", { ascending: true }),
+  );
+}
+
+export async function fetchOpenConflictTaskIds(): Promise<string[]> {
+  const rows = unwrap<{ task_id: string }[]>(
+    await supabase.from("task_conflicts").select("task_id").in("status", ["open", "reconciling"]),
+  );
+  return [...new Set(rows.map((r) => r.task_id))];
+}
+
+export async function fetchTaskReplay(taskId: string): Promise<ReplayEntry[]> {
+  return unwrap<ReplayEntry[]>(
+    await supabase.from("activity_log").select("*").eq("task_id", taskId).order("created_at", { ascending: true }),
+  );
+}
+
+export async function fetchAgentTrackRecord(agentId: string) {
+  return unwrap<Pick<AgentAction, "confidence" | "abstained" | "should_have_abstained" | "was_correct">[]>(
+    await supabase
+      .from("agent_actions")
+      .select("confidence, abstained, should_have_abstained, was_correct")
+      .eq("agent_id", agentId)
+      .not("should_have_abstained", "is", null),
+  );
+}
+
+export async function fetchProfileNames(ids: string[]): Promise<Record<string, string>> {
+  if (ids.length === 0) return {};
+  const rows = unwrap<{ id: string; display_name: string }[]>(
+    await supabase.from("profiles").select("id, display_name").in("id", ids),
+  );
+  return Object.fromEntries(rows.map((r) => [r.id, r.display_name]));
 }

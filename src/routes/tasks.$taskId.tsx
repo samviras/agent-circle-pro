@@ -20,6 +20,7 @@ import {
 } from "@/lib/data";
 import { useAuth } from "@/lib/auth";
 import { AgentAvatar, EmptyState, StatusBadge, Tag } from "@/components/agentnet/primitives";
+import { OversightPanel, TaskReplay } from "@/components/agentnet/oversight";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -302,8 +303,11 @@ function TaskDetail() {
         </div>
       </div>
 
+      <OversightPanel task={task} agents={agents} />
+
       <div className="mt-6 grid gap-6 lg:grid-cols-[1fr_340px]">
         <div className="space-y-6">
+          <TaskReplay taskId={task.id} agents={agents} />
           <section className="panel p-6">
             <h2 className="flex items-center gap-2 font-semibold">
               <GitBranch className="size-4 text-primary" /> Task tree

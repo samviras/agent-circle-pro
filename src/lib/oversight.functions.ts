@@ -66,7 +66,7 @@ async function handToHuman(db: Db, log: ReturnType<typeof replay>, actions: Agen
 
 /** Evaluate new actions: log confidence and abstains, hold low ones, detect and pause conflicts. */
 async function evaluate(db: Db, taskId: string, fresh: AgentAction[], log: ReturnType<typeof replay>) {
-  const { data: all } = await db.from("agent_actions").select("*").eq("task_id", taskId);
+  const { data: all } = await db.from("agent_actions").select("*").eq("task_id", taskId).order("created_at");
   const actions = (all ?? []) as AgentAction[];
   const agentNames = await names(db, [...new Set(actions.map((a) => a.agent_id))]);
 

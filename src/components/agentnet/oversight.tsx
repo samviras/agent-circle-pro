@@ -60,11 +60,6 @@ export function ConfidenceBadge({ level }: { level: string }) {
   );
 }
 
-function when(iso: string | null) {
-  if (!iso) return null;
-  return new Date(iso).toLocaleString(undefined, { weekday: "short", month: "short", day: "numeric", hour: "numeric", minute: "2-digit" });
-}
-
 /** The one "Hand to a human" button used by both features. */
 export function HandToHumanButton({ onClick, recommended, busy }: { onClick: () => void; recommended?: boolean; busy?: boolean }) {
   return (
@@ -243,7 +238,6 @@ function ResultCard({
       ) : (
         <p className="mt-3 text-sm">{action.summary}</p>
       )}
-      {action.scheduled_for && <p className="mt-1 text-xs text-muted-foreground">{when(action.scheduled_for)}</p>}
 
       {held && (
         <div className="mt-4 space-y-3 border-t border-border pt-3">
@@ -329,7 +323,6 @@ function ConflictBanner({
               <ConfidenceBadge level={action.confidence} />
             </div>
             <p className="mt-2 text-sm font-medium">{action.summary}</p>
-            {action.scheduled_for && <p className="mt-1 text-xs text-muted-foreground">{when(action.scheduled_for)}</p>}
             <p className="mt-2 text-xs text-muted-foreground">
               Proposed by <span className="text-foreground">{agent?.name ?? "an agent"}</span> · {action.confidence_reason}
             </p>
@@ -427,7 +420,15 @@ export function TaskReplay({ taskId, agents }: { taskId: string; agents: Agent[]
                   </span>
                 </div>
                 <p className="mt-0.5">
-                  <span className="font-medium">{who}</span> <span className="text-muted-foreground">{e.message}</span>
+                  {who === "Ostrin" && e.message.startsWith("Ostrin ") ? (
+                    <span className="text-muted-foreground">
+                      <span className="font-medium text-foreground">Ostrin</span> {e.message.slice(7)}
+                    </span>
+                  ) : (
+                    <>
+                      <span className="font-medium">{who}</span> <span className="text-muted-foreground">{e.message}</span>
+                    </>
+                  )}
                 </p>
               </li>
             );

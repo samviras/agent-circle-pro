@@ -78,10 +78,12 @@ function useTaskOversight(taskId: string) {
 
 function useRefresh(taskId: string) {
   const qc = useQueryClient();
-  return () => {
-    for (const key of [["actions", taskId], ["conflicts", taskId], ["replay", taskId], ["open-conflicts"], ["feed"]])
-      qc.invalidateQueries({ queryKey: key });
-  };
+  return () =>
+    Promise.all(
+      [["actions", taskId], ["conflicts", taskId], ["replay", taskId], ["open-conflicts"], ["feed"]].map((key) =>
+        qc.invalidateQueries({ queryKey: key }),
+      ),
+    );
 }
 
 export function OversightPanel({ task, agents }: { task: Task; agents: Agent[] }) {
@@ -103,8 +105,8 @@ export function OversightPanel({ task, agents }: { task: Task; agents: Agent[] }
     setBusy(true);
     try {
       await fn();
+      await refresh();
       toast.success(done);
-      refresh();
     } catch (e) {
       toast.error(e instanceof Error ? e.message : "Something went wrong");
     } finally {

@@ -119,8 +119,10 @@ export function detectConflicts(actions: AgentAction[]) {
   const found: { a: AgentAction; b: AgentAction; kind: ConflictKind; reason: string }[] = [];
   for (let i = 0; i < actions.length; i++) {
     for (let j = i + 1; j < actions.length; j++) {
-      const c = conflictBetween(actions[i], actions[j]);
-      if (c) found.push({ a: actions[i], b: actions[j], ...c });
+      const a = actions[i]!;
+      const b = actions[j]!;
+      const c = conflictBetween(a, b);
+      if (c) found.push({ a, b, ...c });
     }
   }
   return found;

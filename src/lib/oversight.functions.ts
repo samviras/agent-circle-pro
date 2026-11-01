@@ -60,7 +60,7 @@ async function handToHuman(db: Db, log: ReturnType<typeof replay>, actions: Agen
   await log({
     type: "handoff",
     userId,
-    message: `handed ${actions.length === 1 ? `"${actions[0].summary}"` : `${actions.length} actions`} to a human (${why}). A care team member will follow up.`,
+    message: `handed ${actions.length === 1 ? `"${actions[0]!.summary}"` : `${actions.length} actions`} to a human (${why}). A care team member will follow up.`,
   });
 }
 

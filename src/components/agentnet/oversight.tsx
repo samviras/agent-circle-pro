@@ -52,7 +52,7 @@ export function ConfidenceBadge({ level }: { level: string }) {
     <span
       className={cn(
         "inline-flex items-center gap-1 rounded-full border px-2 py-0.5 text-[11px] font-medium",
-        CONF_STYLE[level] ?? CONF_STYLE.medium,
+        CONF_STYLE[level] ?? CONF_STYLE["medium"],
       )}
     >
       <Gauge className="size-3" /> {CONFIDENCE_LABEL[level as Confidence] ?? level} confidence
@@ -197,7 +197,7 @@ function ResultCard({
   onAct,
 }: {
   action: AgentAction;
-  agent?: Agent;
+  agent: Agent | undefined;
   inConflict: boolean;
   busy: boolean;
   onAct: (op: "approve" | "ask_agent" | "hand_to_human", reviewed: boolean, label: string) => void;
@@ -301,8 +301,8 @@ function ConflictBanner({
   conflict: TaskConflict;
   a: AgentAction;
   b: AgentAction;
-  agentA?: Agent;
-  agentB?: Agent;
+  agentA: Agent | undefined;
+  agentB: Agent | undefined;
   busy: boolean;
   onResolve: (op: "keep_a" | "keep_b" | "reconcile" | "approve_plan" | "reject_plan" | "hand_to_human", label: string) => void;
 }) {

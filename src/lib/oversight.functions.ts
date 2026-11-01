@@ -5,7 +5,6 @@ import {
   CONFIDENCE_LABEL,
   canReconcile,
   combinedPlan,
-  conflictBetween,
   detectConflicts,
   initialStatus,
   isLow,
@@ -153,9 +152,15 @@ export const actOnResult = createServerFn({ method: "POST" })
         kind: "second_look",
         intent: "info",
         subject: action.subject ? `${action.subject}:review` : null,
-        summary: `Second look: keep a pickup slot open and call the pharmacy to confirm stock before promising a date`,
+        summary:
+          action.kind === "stock_check"
+            ? "Second look: keep a pickup slot open and call the pharmacy to confirm stock before promising a date"
+            : `Second look at "${action.summary}": check the missing details with the patient before going ahead`,
         confidence: "medium",
-        confidence_reason: "Supply and due-date data is complete; stock is still unconfirmed",
+        confidence_reason:
+          action.kind === "stock_check"
+            ? "Supply and due-date data is complete; stock is still unconfirmed"
+            : "Matched 2 of 3 requirements; one detail still needs checking",
         status: "proposed",
       })
       .select("*")
@@ -264,6 +269,3 @@ export const resetDemoTask = createServerFn({ method: "POST" })
     await evaluate(db, task.id, (seeded ?? []) as AgentAction[], log);
     return { ok: true };
   });
-
-// Re-exported so the UI and server agree on the same rule.
-export { conflictBetween };

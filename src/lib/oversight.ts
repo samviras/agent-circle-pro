@@ -61,7 +61,7 @@ export const ACTION_STATUS_LABEL: Record<string, string> = {
 };
 
 /** Statuses that still count as "live" for conflict checks. */
-const LIVE = new Set(["proposed", "running", "paused", "approved"]);
+const LIVE = new Set(["proposed", "running", "held", "paused", "approved"]);
 
 export function isLow(a: Pick<AgentAction, "confidence" | "abstained">) {
   return a.abstained || a.confidence === "low";
